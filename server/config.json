@@ -1,0 +1,30 @@
+{
+  "restApiRoot": "/api",
+  "host": "localhost",
+  "port": 3000,
+  "client": "http://localhost:4000",
+  "remoting": {
+    "context": {
+      "enableHttpContext": false
+    },
+    "rest": {
+      "normalizeHttpPath": false,
+      "xml": false
+    },
+    "json": {
+      "strict": false,
+      "limit": "100kb"
+    },
+    "urlencoded": {
+      "extended": true,
+      "limit": "100kb"
+    },
+    "cors": {
+      "origin": true
+    },
+    "errorHandler": {
+      "disableStackTrace": false
+    }
+  },
+  "legacyExplorer": false
+}
