@@ -1,7 +1,7 @@
 {
-  "name": "aurelia-auth-loopback",
-  "version": "1.1.1",
-  "description": "Sample aurelia-auth loopback application",
+  "name": "aurelia-orm-loopback-sample",
+  "version": "2.0.0",
+  "description": "Sample aurelia-orm loopback application",
   "main": "server/server.js",
   "scripts": {
     "start": "gulp --gulpfile=\"client/gulpfile.js\" watch",
@@ -9,26 +9,20 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/doktordirk/aurelia-auth-loopback-sample"
+    "url": "git+https://github.com/doktordirk/aurelia-orm-loopback-sample"
   },
   "keywords": [
     "aurelia",
-    "aurelia-api",
-    "rest",
+    "aurelia-orm",
+    "orm",
     "loopback"
   ],
   "author": "doktordirk <doktordirk@outlook.de>",
-  "contributors": [
-    {
-      "name": "paul van bladel",
-      "url": "https://github.com/paulvanbladel"
-    }
-  ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/doktordirk/aurelia-api-loopback-sample/issues"
+    "url": "https://github.com/doktordirk/aurelia-orm-loopback-sample/issues"
   },
-  "homepage": "https://github.com/doktordirk/aurelia-api-loopback-sample#readme",
+  "homepage": "https://github.com/doktordirk/aurelia-orm-loopback-sample#readme",
   "dependencies": {
     "body-parser": "^1.15.0",
     "compression": "^1.6.1",
