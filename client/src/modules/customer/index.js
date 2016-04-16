@@ -1,5 +1,6 @@
-export class Index {
+import {inject} from 'aurelia-dependency-injection';
 
+export class Index {
   configureRouter(config, router) {
     config.map([
       {route: ['', 'list'], moduleId: './list', name: 'list'},

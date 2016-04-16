@@ -6,7 +6,10 @@ import {EntityManager} from 'aurelia-orm';
 export class Edit {
 
   constructor(entityManager, router) {
-    this.repository    = entityManager.getRepository('customers');
+    this.entityManager = entityManager;
+    this.customer = entityManager.getEntity('customers');
+    this.repository = entityManager.getRepository('customers');
+
     this.router = router;
   }
 
@@ -26,8 +29,7 @@ export class Edit {
           this.original = customer.asObject();
         });
     }
-    this.customer = this.repository.entityManager.getEntity('customers');
-    this.original = this.customer;
+  //  this.original = this.customer;
   }
 
   delete() {

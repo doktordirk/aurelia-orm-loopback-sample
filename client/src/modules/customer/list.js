@@ -1,15 +1,16 @@
 import { inject } from 'aurelia-framework';
-import { CustomerData } from './customerData';
+import {EntityManager} from 'aurelia-orm';
 import { Router } from 'aurelia-router';
 
-@inject(CustomerData, Router)
+@inject(EntityManager, Router)
 export class List {
   heading = 'Customer management';
 
   customers = [];
 
-  constructor(data, router) {
-    this.service = data;
+  constructor(entityManager, router) {
+    this.entityManager = entityManager;
+    this.repository  = entityManager.getRepository('customers');
     this.router = router;
   }
 
@@ -23,14 +24,10 @@ export class List {
     this.router.navigateToRoute('create');
   }
 
-  getData() {
-    return this.service.getAll()
+  activate() {
+    return this.repository.find()
       .then(customers => {
         this.customers = customers;
       });
-  }
-
-  activate() {
-    return this.getData();
   }
 }

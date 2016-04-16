@@ -47,7 +47,7 @@ A local file is used as database. Have a peek at [server/mydata.json](server/myd
 /client/src/modules/customers
 ```
 
-An aurelia client app. The aurelia-orm is configured in [scr/main.js](src/main.js) and used in [client/scr/modules/customer/edit](client/scr/modules/customer/edit) for rest access to server's customer api.
+An aurelia client app. The entities/models are defined in [src/entities](src/entities) and passed to aurelia-orm in [scr/main.js](src/main.js). The view in [src/modules/customer](src/modules/customer) [client/scr/modules/customer](client/scr/modules/customer) uses the aurelia-orm api to list and edit customers.
 
 ## Support
 
