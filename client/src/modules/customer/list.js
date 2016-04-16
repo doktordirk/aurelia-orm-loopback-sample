@@ -24,8 +24,6 @@ export class List {
   }
 
   getData() {
-    //implement spinner
-
     return this.service.getAll()
       .then(customers => {
         this.customers = customers;

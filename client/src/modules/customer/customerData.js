@@ -1,13 +1,13 @@
 import { inject } from 'aurelia-framework';
-import { Endpoint} from 'aurelia-api';
+import {EntityManager} from 'aurelia-orm';
 
-@inject(Endpoint.of())  // the default endpoint
+@inject(EntityManager)
 export class CustomerData {
 
   model = 'customers';
 
-  constructor(apiEndpoint) {
-    this.apiEndpoint = apiEndpoint;
+  constructor(entityManager) {
+    this.customersRepository = entityManager.getRepository(this.model);
   }
 
   get modelPath() {
@@ -15,26 +15,10 @@ export class CustomerData {
   }
 
   getById(id) {
-    return this.apiEndpoint.find(this.modelPath, id);
+    return this.customersRepository.find(id);
   }
 
   getAll() {
-    return this.apiEndpoint.find(this.modelPath);
-  }
-
-  delete(customer) {
-    return this.apiEndpoint.destroy(this.modelPath, customer.id);
-  }
-
-  save(customer) {
-    let request;
-
-    if (customer.id) {
-      request = this.apiEndpoint.update(this.modelPath, customer.id, customer);
-    } else {
-      request = this.apiEndpoint.create(this.modelPath, customer);
-    }
-
-    return request;
+    return this.customersRepository.find();
   }
 }

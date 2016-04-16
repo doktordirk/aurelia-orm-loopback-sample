@@ -1,6 +1,8 @@
 import 'bootstrap';
 import 'fetch';  // fetch polyfill
 
+import * as entities from 'aurelia-orm';
+
 export function configure(aurelia) {
   aurelia.use
     .standardConfiguration()
@@ -11,11 +13,11 @@ export function configure(aurelia) {
         .registerEndpoint('api', 'http://localhost:3000/api/')
         .setDefaultEndpoint('api');
     })
-    .plugin('aurelia-animator-css');
-  //if the css animator is enabled, add swap-order="after" to all router-view elements
-
-  //Anyone wanting to use HTMLImports to load views, will need to install the following plugin.
-  //aurelia.use.plugin('aurelia-html-import-template-loader')
+    .plugin('aurelia-animator-css')
+    // Register the plugin, and register our entities.
+    .plugin('aurelia-orm', builder => {
+      builder.registerEntities(entities);
+    });
 
   aurelia.start().then(() => aurelia.setRoot());
 }
