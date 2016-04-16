@@ -1,16 +1,16 @@
-# Aurelia-api-loopback-sample
+# Aurelia-orm-loopback-sample
 
 [![Join the chat at https://gitter.im/SpoonX/Dev](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/SpoonX/Dev?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-This is a skeleton for an [Aurelia](http://aurelia.io/) client using [spoonx/aurelia-api](https://github.com/SpoonX/aurelia-api) for rest access to a [Strongloop](http://loopback.io/) loopback api server.
+This is a skeleton for an [Aurelia](http://aurelia.io/) client using [aurelia-orm](https://github.com/SpoonX/aurelia-orm) for rest access to a [Strongloop](http://loopback.io/) loopback api server.
 
 ..
 
 ## Installation instructions
 
 ```sh
-git clone https://github.com/dirkeisinger/aurelia-api-loopback-sample
-cd aurelia-api-loopback-sample
+git clone https://github.com/dirkeisinger/aurelia-orm-loopback-sample
+cd aurelia-orm-loopback-sample
 npm install
 cd client
 npm install
@@ -47,7 +47,7 @@ A local file is used as database. Have a peek at [server/mydata.json](server/myd
 /client/src/modules/customers
 ```
 
-An aurelia client app. The aurelia-api rest client is configured in [scr/main.js](src/main.js) and used in [client/scr/modules/customer/customerData](client/scr/modules/customer/customerData) for rest access to server's customer api.
+An aurelia client app. The aurelia-orm is configured in [scr/main.js](src/main.js) and used in [client/scr/modules/customer/edit](client/scr/modules/customer/edit) for rest access to server's customer api.
 
 ## Support
 

@@ -1,6 +1,6 @@
-# aurelia-api-loopback-sample
+# aurelia-orm-loopback-sample
 
-A simple sample of the aurelia-skeleton where [aurelia-api](https://github.com/SpoonX/aurelia-api) is used to connect to a [loopback](http://loopback.io/) server.
+A simple sample of the aurelia-skeleton where [aurelia-orm](https://github.com/SpoonX/aurelia-orm) is used to connect to a [loopback](http://loopback.io/) server.
 
 ## Running The App
 
