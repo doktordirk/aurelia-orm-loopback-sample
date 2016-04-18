@@ -24,13 +24,12 @@
   },
   "homepage": "https://github.com/doktordirk/aurelia-orm-loopback-sample#readme",
   "dependencies": {
-    "body-parser": "^1.15.0",
     "compression": "^1.6.1",
     "cors": "^2.7.1",
     "errorhandler": "^1.4.3",
-    "loopback": "^2.26.2",
-    "loopback-boot": "^2.16.0",
-    "loopback-datasource-juggler": "^2.45.0",
+    "loopback": "^2.27.0",
+    "loopback-boot": "^2.18.1",
+    "loopback-datasource-juggler": "^2.46.0",
     "serve-favicon": "^2.3.0"
   },
   "optionalDependencies": {
@@ -38,7 +37,7 @@
   },
   "devDependencies": {
     "aurelia-tools": "^0.1.22",
-    "conventional-changelog": "0.0.17",
+    "conventional-changelog": "1.1.0",
     "eslint-config-strongloop": "^2.0.0",
     "eslint-plugin-json": "^1.2.0",
     "gulp": "^3.8.10",

@@ -15,6 +15,11 @@
   },
   "User": {
     "dataSource": "db"
+    "options": {
+      "emailVerificationRequired": false
+    },
+    "$promise": {},
+    "$resolved": true
   },
   "AccessToken": {
     "dataSource": "db",
@@ -34,6 +39,8 @@
   },
   "customer": {
     "dataSource": "db",
-    "public": true
+    "public": true,
+    "$promise": {},
+    "$resolved": true
   }
 }
