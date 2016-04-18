@@ -1,5 +1,3 @@
-import {inject} from 'aurelia-dependency-injection';
-
 export class Index {
   configureRouter(config, router) {
     config.map([
