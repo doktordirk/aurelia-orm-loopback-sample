@@ -14,7 +14,7 @@
     ]
   },
   "User": {
-    "dataSource": "db"
+    "dataSource": "db",
     "options": {
       "emailVerificationRequired": false
     },
