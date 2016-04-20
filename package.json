@@ -4,7 +4,7 @@
   "description": "Sample aurelia-orm loopback application",
   "main": "server/server.js",
   "scripts": {
-    "start": "gulp --gulpfile=\"client/gulpfile.js\" watch",
+    "start": "node .",
     "pretest": "gulp lint"
   },
   "repository": {
@@ -15,6 +15,9 @@
     "aurelia",
     "aurelia-orm",
     "orm",
+    "es6",
+    "typescript",
+    "webpack",
     "loopback"
   ],
   "author": "doktordirk <doktordirk@outlook.de>",

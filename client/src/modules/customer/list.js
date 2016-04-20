@@ -1,5 +1,5 @@
 import { inject } from 'aurelia-framework';
-import {EntityManager} from 'aurelia-orm';
+import { EntityManager } from 'aurelia-orm';
 import { Router } from 'aurelia-router';
 
 @inject(EntityManager, Router)
@@ -15,9 +15,7 @@ export class List {
   }
 
   gotoCustomer(customer) {
-    this.router.navigateToRoute('edit', {
-      id: customer.id
-    });
+    this.router.navigateToRoute('edit', {id: customer.id});
   }
 
   new() {
@@ -26,8 +24,6 @@ export class List {
 
   activate() {
     return this.repository.find()
-      .then(customers => {
-        this.customers = customers;
-      });
+      .then(customers => this.customers = customers);
   }
 }

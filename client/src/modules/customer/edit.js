@@ -1,15 +1,13 @@
 import { inject } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
-import {EntityManager} from 'aurelia-orm';
+import { EntityManager } from 'aurelia-orm';
 
 @inject(EntityManager, Router)
 export class Edit {
-
   constructor(entityManager, router) {
     this.entityManager = entityManager;
-    this.customer = entityManager.getEntity('customers');
     this.repository = entityManager.getRepository('customers');
-
+    this.customer = entityManager.getEntity('customers');
     this.router = router;
   }
 
@@ -29,14 +27,11 @@ export class Edit {
           this.original = customer.asObject();
         });
     }
-  //  this.original = this.customer;
   }
 
   delete() {
     this.customer.destroy()
-      .then( () => {
-        this.router.navigate('list');
-      });
+      .then( () => this.router.navigate('list'));
   }
 
   get isUnchanged() {
@@ -45,8 +40,6 @@ export class Edit {
 
   save() {
     this.customer.save()
-      .then(() => {
-        this.router.navigate('list');
-      });
+      .then(() => this.router.navigate('list'));
   }
 }

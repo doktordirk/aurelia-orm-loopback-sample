@@ -1,8 +1,6 @@
 import 'bootstrap';
 import 'fetch';  // fetch polyfill
 
-import * as entities from 'entities';
-
 export function configure(aurelia) {
   aurelia.use
     .standardConfiguration()
@@ -14,9 +12,7 @@ export function configure(aurelia) {
         .setDefaultEndpoint('api');
     })
     .plugin('aurelia-animator-css')
-    .plugin('aurelia-orm', builder => {
-      builder.registerEntity(entities);
-    });
+    .plugin('aurelia-orm', ()=>{});
 
   aurelia.start().then(() => aurelia.setRoot());
 }
