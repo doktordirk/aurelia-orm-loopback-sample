@@ -6,9 +6,11 @@
 
 This is a skeleton for an [Aurelia](http://aurelia.io/) client using [aurelia-orm](https://github.com/SpoonX/aurelia-orm) for rest access to a [Strongloop](http://loopback.io/) loopback api server.
 
+The aurelia-orm documentantion you'll find at [aurelia-orm.spoonx.org](http://aurelia-orm.spoonx.org/).
+
 ## Installation instructions
 
-### For ES6-SystemJs:
+### For ES6-SystemJs
 
 ```sh
 git clone https://github.com/dirkeisinger/aurelia-orm-loopback-sample
@@ -27,17 +29,15 @@ gulp watch
 
 This builds the aurelia-client and serves client and api.
 
-
-### For Typescript-SystemJs:
+### For Typescript-SystemJs
 
 - use client-ts
 
-### For ES6-Webpack:
+### For ES6-Webpack
 
 - use client-wp
 - no 'jspm install' naturally
 - run with `npm start`
-
 
 ## What's in it
 
