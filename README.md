@@ -2,11 +2,13 @@
 
 [![Join the chat at https://gitter.im/SpoonX/Dev](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/SpoonX/Dev?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
+**Aurelia client included as [ES6-SystemJs](/client), [ES6-Webpack](/client-wp) and [Typescript-SystemJs](/client-ts) versions**
+
 This is a skeleton for an [Aurelia](http://aurelia.io/) client using [aurelia-orm](https://github.com/SpoonX/aurelia-orm) for rest access to a [Strongloop](http://loopback.io/) loopback api server.
 
-..
-
 ## Installation instructions
+
+### For ES6-SystemJs:
 
 ```sh
 git clone https://github.com/dirkeisinger/aurelia-orm-loopback-sample
@@ -17,37 +19,43 @@ npm install
 jspm install
 ```
 
-## How to run the sample
-
-In the root folder type:
+To run the sample type in the client folder:
 
 ```sh
-npm start
+gulp watch
 ```
 
-Browse to [http://localhost:9000](http://localhost:9000) to see the app. You can make changes in the code found under `src` and the browser should auto-refresh itself as you save files.
+This builds the aurelia-client and serves client and api.
+
+
+### For Typescript-SystemJs:
+
+- use client-ts
+
+### For ES6-Webpack:
+
+- use client-wp
+- no 'jspm install' naturally
+- run with `npm start`
+
 
 ## What's in it
 
-### Server
+### Loopback server
 
-```sh
-/server
-/common
-```
+#### [/server](/server)
 
-A [loopback](https://docs.strongloop.com/display/public/LB/LoopBack) api server with a customer model.
+A [loopback](https://docs.strongloop.com/display/public/LB/LoopBack) api server. A local file is used as database. Have a peek at [mydata.json](mydata.json) to gain some insight.
 
-A local file is used as database. Have a peek at [server/mydata.json](server/mydata.json) to gain some insight.
+#### [/common](/common)
 
-#### Client
+The customer model with firstName and lastName properties.
 
-```sh
-/client
-/client/src/modules/customers
-```
+### Aurelia client
 
-An aurelia client app. The entities/models are defined in [src/entities](src/entities) and passed to aurelia-orm in [scr/main.js](src/main.js). The view in [src/modules/customer](src/modules/customer) [client/scr/modules/customer](client/scr/modules/customer) uses the aurelia-orm api to list and edit customers.
+#### [/client](/client) [/client-ts](/client-ts)  [/client-wp](/client-wp)
+
+An aurelia client app using aurelia-orm for customer management (with default endpoint, repository and entity).
 
 ## Support
 
