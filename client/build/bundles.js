@@ -15,12 +15,14 @@ module.exports = {
     },
     "dist/aurelia": {
       "includes": [
+        "aurelia-api",
         "aurelia-framework",
         "aurelia-bootstrapper",
         "aurelia-fetch-client",
         "aurelia-router",
         "aurelia-animator-css",
         "aurelia-templating-binding",
+		    "aurelia-orm",
         "aurelia-polyfills",
         "aurelia-templating-resources",
         "aurelia-templating-router",
@@ -29,7 +31,7 @@ module.exports = {
         "aurelia-logging-console",
         "bootstrap",
         "bootstrap/css/bootstrap.css!text",
-        "aurelia-api"
+        "jquery"
       ],
       "options": {
         "inject": true,
