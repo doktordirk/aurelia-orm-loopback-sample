@@ -38,6 +38,7 @@
     "aurelia-framework": "^1.0.0-beta.1.1.3",
     "aurelia-history-browser": "^1.0.0-beta.1.1.2",
     "aurelia-logging-console": "^1.0.0-beta.1.1.4",
+    "aurelia-orm": "github:spoonx/aurelia-orm#dev",
     "aurelia-pal-browser": "^1.0.0-beta.1.1.4",
     "aurelia-polyfills": "^1.0.0-beta.1.0.0",
     "aurelia-router": "^1.0.0-beta.1.1.1",
