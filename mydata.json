@@ -1,22 +1,25 @@
 {
   "ids": {
-    "User": 1,
+    "user": 3,
     "AccessToken": 1,
     "ACL": 1,
     "RoleMapping": 1,
-    "Role": 1,
-    "customer": 4
+    "customer": 3,
+    "Role": 1
   },
   "models": {
-    "User": {},
-    "AccessToken": {},
+    "user": {
+      "1": "{\"displayName\":\"User Name\",\"email\":\"user@example.com\",\"id\":1}",
+      "2": "{\"displayName\":\"Another User\",\"email\":\"another@example.com\",\"id\":2}"
+    },
+    "AccessToken": {
+    },
     "ACL": {},
     "RoleMapping": {},
     "Role": {},
     "customer": {
-    "1": "{\"firstName\":\"Roy\",\"lastName\":\"Stein\",\"id\":1}",
-      "2": "{\"firstName\":\"Annabel\",\"lastName\":\"User\",\"id\":2}",
-      "3": "{\"firstName\":\"Suzanne\",\"lastName\":\"Klabe\",\"id\":3}"
+      "1": "{\"firstName\":\"Hugh\",\"lastName\":\"Grant\",\"userId\":1,\"id\":1}",
+      "2": "{\"firstName\":\"Someone\",\"lastName\":\"ElseMadeThis\",\"userId\":2,\"id\":2}"
     }
   }
 }
