@@ -9,7 +9,6 @@ export class List {
   customers = [];
 
   constructor(entityManager, router) {
-    this.entityManager = entityManager;
     this.repository  = entityManager.getRepository('customers');
     this.router = router;
   }
