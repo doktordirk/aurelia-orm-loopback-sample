@@ -44,7 +44,7 @@ System.config({
       "typer": "npm:typer@1.1.0"
     },
     "github:twbs/bootstrap@3.3.6": {
-      "jquery": "github:components/jquery@2.2.1"
+      "jquery": "npm:jquery@2.2.3"
     },
     "npm:aurelia-animator-css@1.0.0-beta.1.2.0": {
       "aurelia-metadata": "npm:aurelia-metadata@1.0.0-beta.1.2.0",
@@ -175,7 +175,7 @@ System.config({
       "aurelia-templating": "npm:aurelia-templating@1.0.0-beta.1.2.2"
     },
     "npm:font-awesome@4.6.1": {
-      "css": "github:systemjs/plugin-css@0.1.20"
+      "css": "github:systemjs/plugin-css@0.1.21"
     }
   }
 });
