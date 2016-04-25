@@ -7,7 +7,7 @@ import { Customer } from 'entities/customer';
 export class Edit {
   constructor(entityManager, router) {
     this.repository = entityManager.getRepository('customers');
-    this.customer = entityManager.getEntity('customer');
+    this.customer = this.repository.getNewEntity(Customer);
     this.router = router;
   }
 
@@ -27,6 +27,9 @@ export class Edit {
           this.original = customer.asObject();
         });
     }
+    this.customer.setData({firstName: '', lastName: ''});
+    this.customer.markClean();
+    this.original = this.customer.asObject();
   }
 
   delete() {
@@ -36,6 +39,14 @@ export class Edit {
 
   get isUnchanged() {
     return this.customer.isClean();
+  }
+
+  get isInvalid() {
+    return !this.customer.firstName || !this.customer.lastName;
+  }
+
+  get isNew() {
+    return this.customer.isNew();
   }
 
   save() {
