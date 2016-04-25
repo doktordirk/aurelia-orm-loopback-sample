@@ -2,6 +2,7 @@ import 'bootstrap';
 import 'fetch';  // fetch polyfill
 
 import {Customer} from 'entities/customer';
+import {User} from 'entities/user';
 
 export function configure(aurelia) {
   aurelia.use
@@ -14,7 +15,8 @@ export function configure(aurelia) {
         .setDefaultEndpoint('github');
     })
     .plugin('aurelia-orm', config => {
-      config.registerEntity(Customer);
+      config.registerEntity(Customer)
+            .registerEntity(User);
     });
 
   aurelia.start().then(() => aurelia.setRoot());
