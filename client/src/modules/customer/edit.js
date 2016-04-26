@@ -1,13 +1,13 @@
 import { inject } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { EntityManager } from 'aurelia-orm';
-import { Customer } from 'entities/customer';
+import { Customers } from 'entities/customers';
 
 @inject(EntityManager, Router)
 export class Edit {
   constructor(entityManager, router) {
     this.repository = entityManager.getRepository('customers');
-    this.customer = this.repository.getNewEntity(Customer);
+    this.customer = this.repository.getNewEntity(Customers);
     this.router = router;
   }
 

@@ -11,7 +11,7 @@ export class Customers {
   }
 
   activate() {
-    return this.publicApi.find('customers',{filter: '{"include": "user"}'})
+    return this.publicApi.find('customers', {filter: '{"include": "user"}'})
       .then(customers => this.customers = customers);
   }
 }
