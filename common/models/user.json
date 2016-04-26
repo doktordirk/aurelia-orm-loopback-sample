@@ -23,6 +23,9 @@
       }
     }
   },
+  "scope": {
+    "include": "customers"
+  },
   "acls": [],
   "methods": {}
 }

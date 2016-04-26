@@ -1,4 +1,4 @@
-import {Entity, resource, endpoint, type,} from 'aurelia-orm';
+import {Entity, resource, endpoint, type, association} from 'aurelia-orm';
 
 @resource('users')
 @endpoint('api')
@@ -12,4 +12,7 @@ export class User extends Entity {
 
   @type('string')
   password = 'none';
+
+  @association('customers')
+  customers = null
 }
