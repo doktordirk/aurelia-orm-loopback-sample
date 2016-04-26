@@ -9,7 +9,7 @@ export class List {
   customers = [];
 
   constructor(entityManager, router) {
-    this.repository  = entityManager.getRepository('customers');
+    this.repository = entityManager.getRepository('users');
     this.router = router;
   }
 
@@ -22,7 +22,9 @@ export class List {
   }
 
   activate() {
-    return this.repository.find()
-      .then(customers => this.customers = customers);
+    return this.repository.find(1)
+      .then(user => {
+        this.customers = user.customers;
+      });
   }
 }
