@@ -13,6 +13,6 @@ export class User extends Entity {
   @type('string')
   password = 'none';
 
-  @association('customers')
+  @association({collection: 'customers'})
   customers = null
 }
