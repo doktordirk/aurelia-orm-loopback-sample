@@ -1,8 +1,8 @@
 import 'bootstrap';
 import 'fetch';  // fetch polyfill
 
-import {Customers} from 'entities/customers';
-import {User} from 'entities/user';
+import {Customers} from './entities/customers';
+import {User} from './entities/user';
 
 export function configure(aurelia) {
   aurelia.use

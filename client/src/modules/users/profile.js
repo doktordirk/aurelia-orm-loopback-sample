@@ -1,7 +1,7 @@
 import { inject } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { EntityManager } from 'aurelia-orm';
-import { User } from 'entities/user';
+import { User } from '../../entities/user';
 
 @inject(EntityManager, Router)
 export class Profile {
