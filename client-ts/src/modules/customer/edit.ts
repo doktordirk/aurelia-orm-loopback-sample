@@ -1,30 +1,30 @@
 import { autoinject } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
-import { EntityManager } from 'aurelia-orm';
+import { EntityManager, Repository } from 'aurelia-orm';
+import { User } from '../../entities/user';
+import { Customers } from '../../entities/customers';
+
+const USER_ID: number = 1;  // fix user for simplicity
 
 @autoinject()
 export class Edit {
-  entityManager;
-  repository
-  router;
+  entityManager: EntityManager;
+  userRepository: Repository;
+  repository: Repository;
+  router: Router;
 
-  customer;
-  original;
+  customer: Customers;
+  original: Object;
 
   constructor(entityManager: EntityManager, router: Router) {
     this.entityManager = entityManager;
+    this.userRepository = entityManager.getRepository('users');
     this.repository = entityManager.getRepository('customers');
-    this.customer = entityManager.getEntity('customers');
-    this.original = this.customer.asObject();
+    this.customer = this.repository.getNewEntity();
     this.router = router;
   }
 
   cancel() {
-    if (JSON.stringify(this.original) === '{}') {
-      this.customer = this.entityManager.getEntity('customers');
-      return this.customer;
-    }
-
     return this.customer.setData(this.original);
   }
 
@@ -32,23 +32,34 @@ export class Edit {
     window.history.back();
   }
 
-  activate(params: any) {
-    if (params.id) {
-      return this.repository.find(params.id)
-        .then(customer => {
-          this.customer = customer;
-          this.original = customer.asObject();
-        });
-    }
+  activate(params) {
+    return this.userRepository.find(USER_ID)
+      .then(user => {
+        if (params.id) {
+          this.customer = user.customers.filter( customer => customer.id == params.id)[0];
+        } else {
+          this.customer.setData({firstName: '', lastName: '', userId: USER_ID});
+        }
+        this.original = this.customer.asObject();
+        this.customer.markClean();
+      });
   }
 
   delete() {
     this.customer.destroy()
-      .then(() => this.router.navigate('list'));
+      .then( () => this.router.navigate('list'));
   }
 
   get isUnchanged() {
     return this.customer.isClean();
+  }
+
+  get isInvalid() {
+    return !this.customer.firstName || !this.customer.lastName;
+  }
+
+  get isNew() {
+    return this.customer.isNew();
   }
 
   save() {

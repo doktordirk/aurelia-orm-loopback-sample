@@ -1,6 +1,8 @@
 import 'bootstrap';
 import 'fetch';  // fetch polyfill
 import {Aurelia} from 'aurelia-framework';
+import {Customers} from './entities/customers';
+import {User} from './entities/user';
 
 export function configure(aurelia: Aurelia) {
   aurelia.use
@@ -10,12 +12,12 @@ export function configure(aurelia: Aurelia) {
       config
         .registerEndpoint('github', 'https://api.github.com/')
         .registerEndpoint('api', 'http://localhost:3000/api/')
-        .setDefaultEndpoint('api');
+        .setDefaultEndpoint('github');
     })
-    .plugin('aurelia-animator-css');
-
-  //Anyone wanting to use HTMLImports to load views, will need to install the following plugin.
-  //aurelia.use.plugin('aurelia-html-import-template-loader')
+    .plugin('aurelia-orm', config => {
+      config.registerEntity(Customers)
+      config.registerEntity(User);
+    });
 
   aurelia.start().then(() => aurelia.setRoot());
 }

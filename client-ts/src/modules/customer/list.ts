@@ -1,20 +1,20 @@
 import { autoinject } from 'aurelia-framework';
-import { EntityManager } from 'aurelia-orm';
+import { EntityManager, Repository } from 'aurelia-orm';
 import { Router } from 'aurelia-router';
+import { Customers } from '../../entities/customers';
 
 @autoinject()
 export class List {
-  heading = 'Customer management';
+  heading: string = 'Customer management';
 
-  customerList = [];
+  customers: Array<Customers> = [];
 
-  entityManager;
-  repository;
-  router;
+  entityManager: EntityManager;
+  repository: Repository;
+  router: Router;
 
   constructor(entityManager: EntityManager, router: Router) {
-    this.entityManager = entityManager;
-    this.repository  = entityManager.getRepository('customers');
+    this.repository = entityManager.getRepository('users');
     this.router = router;
   }
 
@@ -27,7 +27,9 @@ export class List {
   }
 
   activate() {
-    return this.repository.find()
-      .then(customerList => this.customerList = customerList);
+    return this.repository.find(1)
+      .then(user => {
+        this.customers = user.customers;
+      });
   }
 }
