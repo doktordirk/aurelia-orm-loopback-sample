@@ -9,7 +9,7 @@ export class Profile {
 
   constructor(entityManager, router) {
     this.repository = entityManager.getRepository('users');
-    this.profile = this.repository.getNewEntity(User);
+    this.profile = this.repository.getNewEntity();
     this.router = router;
   }
 
@@ -23,7 +23,7 @@ export class Profile {
   update() {
     this.profile.save();
   }
-  
+
   get isUnchanged() {
     return this.profile.isClean();
   }

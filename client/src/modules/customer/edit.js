@@ -1,7 +1,6 @@
 import { inject } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { EntityManager } from 'aurelia-orm';
-import { Customers } from 'entities/customers';
 
 const USER_ID = 1;  // fix user for simplicity
 
@@ -10,7 +9,7 @@ export class Edit {
   constructor(entityManager, router) {
     this.userRepository = entityManager.getRepository('users');
     this.repository = entityManager.getRepository('customers');
-    this.customer = this.repository.getNewEntity(Customers);
+    this.customer = this.repository.getNewEntity();
     this.router = router;
   }
 
