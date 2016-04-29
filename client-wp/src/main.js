@@ -6,6 +6,8 @@ import 'isomorphic-fetch';
 import '../node_modules/bootstrap/dist/css/bootstrap.css';
 import '../node_modules/font-awesome/css/font-awesome.css';
 import '../styles/styles.css';
+import {Customers} from './entities/customers';
+import {User} from './entities/user';
 
 bootstrap(function(aurelia) {
   aurelia.use
@@ -15,7 +17,11 @@ bootstrap(function(aurelia) {
       config
         .registerEndpoint('github', 'https://api.github.com/')
         .registerEndpoint('api', 'http://localhost:3000/api/')
-        .setDefaultEndpoint('api');
+        .setDefaultEndpoint('github');
+    })
+    .plugin('aurelia-orm', config => {
+      config.registerEntity(Customers)
+            .registerEntity(User);
     });
 
   aurelia.start().then(() => aurelia.setRoot('app', document.body));

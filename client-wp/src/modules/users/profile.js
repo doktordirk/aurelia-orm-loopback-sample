@@ -1,30 +1,30 @@
 import { inject } from 'aurelia-framework';
-import { EntityManager } from 'aurelia-orm';
 import { Router } from 'aurelia-router';
+import { EntityManager } from 'aurelia-orm';
+import { User } from '../../entities/user';
 
 @inject(EntityManager, Router)
-export class List {
-  heading = 'Customer management';
-
-  customers = [];
+export class Profile {
+  heading = 'Profile';
 
   constructor(entityManager, router) {
     this.repository = entityManager.getRepository('users');
+    this.profile = this.repository.getNewEntity();
     this.router = router;
-  }
-
-  gotoCustomer(customer) {
-    this.router.navigateToRoute('edit', {id: customer.id});
-  }
-
-  new() {
-    this.router.navigateToRoute('create');
   }
 
   activate() {
     return this.repository.find(1)
       .then(user => {
-        this.customers = user.customers;
+        this.profile = user;
       });
+  }
+
+  update() {
+    this.profile.save();
+  }
+
+  get isUnchanged() {
+    return this.profile.isClean();
   }
 }
