@@ -1,6 +1,6 @@
 export class App {
   configureRouter(config, router) {
-    config.title = 'Aurelia-Orm-Loopback';
+    config.title = 'Aurelia-Orm-Loopback-WP';
     config.map([
       { route: ['', 'welcome'], name: 'welcome',      moduleId: 'welcome',                nav: true, title: 'Welcome' },
       { route: 'users',         name: 'users',        moduleId: 'modules/users/profile',  nav: true, title: 'Profile' },
