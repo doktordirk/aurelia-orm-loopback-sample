@@ -15,7 +15,7 @@ The aurelia-orm documentantion you'll find at [aurelia-orm.spoonx.org](http://au
 For typescript, replace `cd client` below with `cd client-ts`.
 
 ```sh
-git clone https://github.com/dirkeisinger/aurelia-orm-loopback-sample
+git clone https://github.com/doktordirk/aurelia-orm-loopback-sample
 cd aurelia-orm-loopback-sample
 npm install
 cd client
@@ -34,7 +34,7 @@ This builds the aurelia-client and serves the client and the api server. Browse 
 ### For ES6-Webpack
 
 ```sh
-git clone https://github.com/dirkeisinger/aurelia-orm-loopback-sample
+git clone https://github.com/doktordirk/aurelia-orm-loopback-sample
 cd aurelia-orm-loopback-sample
 npm install
 cd client-wp
