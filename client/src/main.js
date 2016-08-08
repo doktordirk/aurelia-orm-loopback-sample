@@ -1,5 +1,4 @@
 import 'bootstrap';
-import 'fetch';  // fetch polyfill
 
 import {Customers} from './entities/customers';
 import {User} from './entities/user';

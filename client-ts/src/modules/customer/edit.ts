@@ -37,6 +37,7 @@ export class Edit {
       .then(user => {
         if (params.id) {
           this.customer = user.customers.filter( customer => customer.id == params.id)[0];
+          console.log(this.customer, this.customer.isNew())
         } else {
           this.customer.setData({firstName: '', lastName: '', userId: USER_ID});
         }
@@ -64,6 +65,9 @@ export class Edit {
 
   save() {
     this.customer.save()
-      .then(() => this.router.navigate('list'));
+      .then((customer) => {
+        console.log(customer, this.customer.isNew());
+        return this.router.navigate('list');
+      });
   }
 }

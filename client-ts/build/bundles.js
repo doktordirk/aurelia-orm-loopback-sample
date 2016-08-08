@@ -2,9 +2,9 @@ module.exports = {
   "bundles": {
     "dist/app-build": {
       "includes": [
-        "[*.js]",
-        "*.html!text",
-        "*.css!text"
+        "[**/*.js]",
+        "**/*.html!text",
+        "**/*.css!text"
       ],
       "options": {
         "inject": true,
@@ -15,8 +15,8 @@ module.exports = {
     },
     "dist/aurelia": {
       "includes": [
-		    "aurelia-api",
-		    "aurelia-framework",
+        "aurelia-api",
+        "aurelia-framework",
         "aurelia-bootstrapper",
         "aurelia-fetch-client",
         "aurelia-router",
@@ -28,9 +28,9 @@ module.exports = {
         "aurelia-loader-default",
         "aurelia-history-browser",
         "aurelia-logging-console",
-		    "aurelia-orm",
         "bootstrap",
         "bootstrap/css/bootstrap.css!text",
+        "fetch",
         "jquery"
       ],
       "options": {

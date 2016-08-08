@@ -1,4 +1,5 @@
 var gulp = require('gulp');
+var path = require('path');
 var paths = require('../paths');
 var nodemon = require('gulp-nodemon');
 var browserSync = require('browser-sync');
@@ -6,7 +7,7 @@ var util = require('gulp-util');
 
 gulp.task('node', function() {
   var nodeOptions = {
-    script: paths.nodeStartUpScriptPath,
+    script: path.join( path.normalize('./../server'),  'server.js'),
     delayTime: 1,
     watch: ['./../server', './../common']
   };
