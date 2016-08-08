@@ -1,15 +1,17 @@
-var Promise = require('bluebird').config({longStackTraces: false, warnings: false}); // Promise polyfill for IE11 with warnings turned off
-import {bootstrap} from 'aurelia-bootstrapper-webpack';
-import 'bootstrap';    // for the nav-bar dropdown
-import 'isomorphic-fetch';
-
-import '../node_modules/bootstrap/dist/css/bootstrap.css';
-import '../node_modules/font-awesome/css/font-awesome.css';
+// we want font-awesome to load as soon as possible to show the fa-spinner
 import '../styles/styles.css';
+import 'font-awesome/css/font-awesome.css';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap';
+
+// comment out if you don't want a Promise polyfill (remove also from webpack.common.js)
+import * as Bluebird from 'bluebird';
+Bluebird.config({ warnings: false });
+
 import {Customers} from './entities/customers';
 import {User} from './entities/user';
 
-bootstrap(function(aurelia) {
+export async function configure(aurelia) {
   aurelia.use
     .standardConfiguration()
     .developmentLogging()
@@ -21,8 +23,16 @@ bootstrap(function(aurelia) {
     })
     .plugin('aurelia-orm', config => {
       config.registerEntity(Customers)
-            .registerEntity(User);
+      config.registerEntity(User);
     });
 
-  aurelia.start().then(() => aurelia.setRoot('app', document.body));
-});
+  await aurelia.start();
+  aurelia.setRoot('app');
+
+  // if you would like your website to work offline (Service Worker), 
+  // install and enable the @easy-webpack/config-offline package in webpack.config.js and uncomment the following code:
+  /*
+  const offline = await System.import('offline-plugin/runtime');
+  offline.install();
+  */
+}
