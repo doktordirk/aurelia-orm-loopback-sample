@@ -1,11 +1,12 @@
 <template>
   <section >
       <h2>${heading}</h2>
-      <div class="row au-stagger">
-        <div  repeat.for="customer of customers">
-          <p><b>${customer.firstName} ${customer.lastName}</b>
-          <small>(Made by ${customer.user.displayName})</small></p>
-        </div>
-      </div>
+      <datatable
+        columns="id, firstName as FirstName"
+        repository.bind="repository"
+        search-column="firstName"
+        searchable
+        sortable
+      ></datatable>
   </section>
 </template>

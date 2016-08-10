@@ -31,6 +31,9 @@ const coreBundles = {
   aurelia: [
     'aurelia-api',
     'aurelia-orm',
+    'aurelia-view-manager',
+    'aurelia-pager',
+    'aurelia-datatable',
     'aurelia-bootstrapper-webpack',
     'aurelia-binding',
     'aurelia-dependency-injection',

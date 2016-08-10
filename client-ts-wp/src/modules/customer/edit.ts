@@ -4,7 +4,7 @@ import { EntityManager, Repository } from 'aurelia-orm';
 import { User } from '../../entities/user';
 import { Customers } from '../../entities/customers';
 
-const USER_ID: number = 1;  // fix user for simplicity
+const USER_ID: string = 'a146aed0-5ee3-11e6-94bc-c1329b3ad075';  // fix user for simplicity
 
 @autoinject()
 export class Edit {
