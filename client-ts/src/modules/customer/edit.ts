@@ -4,7 +4,7 @@ import { EntityManager, Repository } from 'aurelia-orm';
 import { User } from '../../entities/user';
 import { Customers } from '../../entities/customers';
 
-const USER_ID: number = 1;  // fix user for simplicity
+const USER_ID: string = 'a146aed0-5ee3-11e6-94bc-c1329b3ad075';  // fix user for simplicity
 
 @autoinject()
 export class Edit {
@@ -37,8 +37,9 @@ export class Edit {
       .then(user => {
         if (params.id) {
           this.customer = user.customers.filter( customer => customer.id == params.id)[0];
-          console.log(this.customer, this.customer.isNew())
+          console.log('old', this.customer, this.customer.isNew())
         } else {
+        console.log('new', this.customer, this.customer.isNew())
           this.customer.setData({firstName: '', lastName: '', userId: USER_ID});
         }
         this.original = this.customer.asObject();
@@ -64,10 +65,24 @@ export class Edit {
   }
 
   save() {
-    this.customer.save()
-      .then((customer) => {
-        console.log(customer, this.customer.isNew());
-        return this.router.navigate('list');
-      });
+    if (this.customer.isNew()) {
+      return this.customer.save()
+        .then(result => {
+          console.log('new', result, this.customer.isNew());
+          return this.router.navigate('list');
+        })
+        .catch(error => {
+            console.error(error);
+        });
+    } else {
+      return this.customer.update()
+        .then(result => {
+          console.log('update', result, this.customer.isNew());
+          return this.router.navigate('list');
+        })
+        .catch(error => {
+            console.error(error);
+        });
+    }
   }
 }
