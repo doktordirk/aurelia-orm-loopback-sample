@@ -15,7 +15,6 @@ module.exports = {
     },
     "dist/aurelia": {
       "includes": [
-        "aurelia-api",
         "aurelia-framework",
         "aurelia-bootstrapper",
         "aurelia-fetch-client",
@@ -30,7 +29,23 @@ module.exports = {
         "aurelia-logging-console",
         "bootstrap",
         "bootstrap/css/bootstrap.css!text",
-        "jquery"
+        "fetch",
+        "get-prop",
+        "json-statham",
+        "jquery",
+        "text",
+        "aurelia-api",
+        "aurelia-authentication",
+        "[aurelia-authentication/**/*.js]",
+        "aurelia-datatable",
+        "[aurelia-datatable/**/*.js]",
+        "aurelia-datatable/**/*.html!text",
+        "aurelia-orm",
+        "[aurelia-orm/**/*.js]",
+        "aurelia-orm/**/*.html!text",
+        "aurelia-pager",
+        "[aurelia-pager/**/*.js]",
+        "aurelia-pager/**/*.html!text"
       ],
       "options": {
         "inject": true,

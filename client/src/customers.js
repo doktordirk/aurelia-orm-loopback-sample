@@ -1,17 +1,11 @@
 import {inject} from 'aurelia-framework';
-import {Endpoint} from 'aurelia-api';
+import {EntityManager} from "aurelia-orm";
 
-@inject(Endpoint.of('api'))
+@inject(EntityManager)
 export class Customers {
   heading = 'Customers';
-  customers = [];
 
-  constructor(rest) {
-    this.publicApi = rest;
-  }
-
-  activate() {
-    return this.publicApi.find('customers', {filter: '{"include": "user"}'})
-      .then(customers => this.customers = customers);
+  constructor(entityManager) {
+    this.repository = entityManager.getRepository('customers');
   }
 }

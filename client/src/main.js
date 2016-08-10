@@ -16,7 +16,11 @@ export function configure(aurelia) {
     .plugin('aurelia-orm', config => {
       config.registerEntity(Customers)
             .registerEntity(User);
-    });
+    })
+    /* @see https://github.com/spoonx/aurelia-pager */
+    .plugin('aurelia-pager')
+    /* @see https://github.com/spoonx/aurelia-datatable */
+    .plugin('aurelia-datatable');
 
   aurelia.start().then(() => aurelia.setRoot());
 }
