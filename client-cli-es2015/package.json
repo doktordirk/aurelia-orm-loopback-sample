@@ -11,13 +11,17 @@
     "aurelia-animator-css": "^1.0.0",
     "aurelia-api": "github:doktordirk/aurelia-api#dev",
     "aurelia-bootstrapper": "^1.0.0",
+    "aurelia-datatable": "github:doktordirk/aurelia-datatable#statham",
     "aurelia-fetch-client": "^1.0.0",
-    "aurelia-orm": "github:doktordirk/aurelia-orm#dev",
+    "aurelia-orm": "github:doktordirk/aurelia-orm#testy",
+    "aurelia-pager": "0.0.10",
     "aurelia-validation": "github:aurelia/validation#0.6.6",
+    "aurelia-view-manager": "0.0.7",
     "bluebird": "^3.4.1",
     "bootstrap": "^3.3.7",
     "extend": "^3.0.0",
-    "jquery": "^3.1.0"
+    "jquery": "^3.1.0",
+    "json-statham": "^2.1.0"
   },
   "peerDependencies": {},
   "devDependencies": {

@@ -307,7 +307,7 @@ function drawBlur(canvas, image) {
 };
 });
 
-define('customers',['require','exports','module','aurelia-framework','aurelia-api'],function (require, exports, module) {'use strict';
+define('customers',['require','exports','module','aurelia-framework','aurelia-orm'],function (require, exports, module) {'use strict';
 
 exports.__esModule = true;
 exports.Customers = undefined;
@@ -316,30 +316,17 @@ var _dec, _class;
 
 var _aureliaFramework = require('aurelia-framework');
 
-var _aureliaApi = require('aurelia-api');
+var _aureliaOrm = require('aurelia-orm');
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Customers = exports.Customers = (_dec = (0, _aureliaFramework.inject)(_aureliaApi.Endpoint.of('api')), _dec(_class = function () {
-  function Customers(rest) {
-    _classCallCheck(this, Customers);
+var Customers = exports.Customers = (_dec = (0, _aureliaFramework.inject)(_aureliaOrm.EntityManager), _dec(_class = function Customers(entityManager) {
+  _classCallCheck(this, Customers);
 
-    this.heading = 'Customers';
-    this.customers = [];
+  this.heading = 'Customers';
 
-    this.publicApi = rest;
-  }
-
-  Customers.prototype.activate = function activate() {
-    var _this = this;
-
-    return this.publicApi.find('customers', { filter: '{"include": "user"}' }).then(function (customers) {
-      return _this.customers = customers;
-    });
-  };
-
-  return Customers;
-}()) || _class);
+  this.repository = entityManager.getRepository('customers');
+}) || _class);
 });
 
 define('environment',['require','exports','module'],function (require, exports, module) {"use strict";
@@ -379,7 +366,7 @@ function configure(aurelia) {
     config.registerEndpoint('github', 'https://api.github.com/').registerEndpoint('api', 'http://localhost:3000/api/').setDefaultEndpoint('github');
   }).plugin('aurelia-orm', function (config) {
     config.registerEntity(_customers.Customers).registerEntity(_user.User);
-  });
+  }).plugin('aurelia-datatable');
 
   if (_environment2.default.debug) {
     aurelia.use.developmentLogging();
@@ -3444,7 +3431,7 @@ define('aurelia-validation/validate-custom-attribute',['exports', 'aurelia-depen
   }()) || _class) || _class);
 });
 define('text!app.html', ['module'], function(module) { module.exports = "<template>\n  <require from=\"nav-bar.html\"></require>\n  <require from=\"bootstrap/css/bootstrap.css\"></require>\n  \n  <nav-bar router.bind=\"router\"></nav-bar>\n\n  <div class=\"page-host\">\n    <router-view></router-view>\n  </div>\n</template>\n"; });
-define('text!customers.html', ['module'], function(module) { module.exports = "<template>\r\n  <section >\r\n      <h2>${heading}</h2>\r\n      <div class=\"row au-stagger\">\r\n        <div  repeat.for=\"customer of customers\">\r\n          <p><b>${customer.firstName} ${customer.lastName}</b>\r\n          <small>(Made by ${customer.user.displayName})</small></p>\r\n        </div>\r\n      </div>\r\n  </section>\r\n</template>\r\n"; });
+define('text!customers.html', ['module'], function(module) { module.exports = "<template>\n  <section >\n      <h2>${heading}</h2>\n      <datatable\n        columns=\"id, firstName as FirstName\"\n        repository.bind=\"repository\"\n        search-column=\"firstName\"\n        searchable\n        sortable\n      ></datatable>\n  </section>\n</template>\n"; });
 define('text!nav-bar.html', ['module'], function(module) { module.exports = "<template bindable=\"router\">\n  <nav class=\"navbar navbar-default navbar-fixed-top\" role=\"navigation\">\n    <div class=\"navbar-header\">\n      <button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\"#skeleton-navigation-navbar-collapse\">\n        <span class=\"sr-only\">Toggle Navigation</span>\n        <span class=\"icon-bar\"></span>\n        <span class=\"icon-bar\"></span>\n        <span class=\"icon-bar\"></span>\n      </button>\n      <a class=\"navbar-brand\" href=\"#\">\n        <i class=\"fa fa-home\"></i>\n        <span>${router.title}</span>\n      </a>\n    </div>\n\n    <div class=\"collapse navbar-collapse\" id=\"skeleton-navigation-navbar-collapse\">\n      <ul class=\"nav navbar-nav\">\n        <li repeat.for=\"row of router.navigation\" class=\"${row.isActive ? 'active' : ''}\">\n          <a data-toggle=\"collapse\" data-target=\"#skeleton-navigation-navbar-collapse.in\" href.bind=\"row.href\">${row.title}</a>\n        </li>\n      </ul>\n\n      <ul class=\"nav navbar-nav navbar-right\">\n        <li class=\"loader\" if.bind=\"router.isNavigating\">\n          <i class=\"fa fa-spinner fa-spin fa-2x\"></i>\n        </li>\n      </ul>\n    </div>\n  </nav>\n</template>\n"; });
 define('text!welcome.html', ['module'], function(module) { module.exports = "<template>\r\n  <section class=\"au-animate\">\r\n    <h2>${heading}</h2>\r\n    <form role=\"form\" submit.delegate=\"submit()\">\r\n      <div class=\"form-group\">\r\n        <label for=\"fn\">First Name</label>\r\n        <input type=\"text\" value.bind=\"firstName\" class=\"form-control\" id=\"fn\" placeholder=\"first name\">\r\n      </div>\r\n      <div class=\"form-group\">\r\n        <label for=\"ln\">Last Name</label>\r\n        <input type=\"text\" value.bind=\"lastName\" class=\"form-control\" id=\"ln\" placeholder=\"last name\">\r\n      </div>\r\n      <div class=\"form-group\">\r\n        <label>Full Name</label>\r\n        <p class=\"help-block\">${fullName | upper}</p>\r\n      </div>\r\n      <button type=\"submit\" class=\"btn btn-default\">Submit</button>\r\n    </form>\r\n  </section>\r\n</template>\r\n"; });
 define('text!modules/customer/edit.html', ['module'], function(module) { module.exports = "<template>\r\n<div class=\"container\">\r\n    <div class=\"panel panel-default\">\r\n        <div class=\"panel-heading\">\r\n            <div class=\"panel-title\">\r\n                <h3>Editing ${customer.lastName}</h3>\r\n            </div>\r\n            <button class=\"btn btn-info\"\r\n            click.delegate=\"goBack()\">\r\n            Back\r\n            </button>\r\n            <button class=\"btn btn-info\"\r\n            click.delegate=\"cancel()\"\r\n            disabled.bind=\"isUnchanged\">\r\n            Cancel\r\n            </button>\r\n            <button class=\"btn btn-info\"\r\n            click.delegate=\"save()\"\r\n            disabled.bind=\"isUnchanged || isInvalid\">\r\n            Save\r\n            </button>\r\n            <button class=\"btn btn-info\"\r\n            click.delegate=\"delete()\"\r\n            disabled.bind=\"isNew || !isUnchanged\">\r\n            Delete\r\n            </button>\r\n        </div>\r\n        <div class=\"panel-body\">\r\n      <form class=\"form-horizontal\">\r\n        <div class=\"form-group\">\r\n            <label class=\"col-sm-2 control-label\">First Name</label>\r\n            <div class=\"col-sm-10\">\r\n                <input type=\"text\" placeholder=\"First Name\"  class=\"form-control\"\r\n                value.bind=\"customer.firstName\" />\r\n            </div>\r\n        </div>\r\n        <div class=\"form-group\">\r\n            <label class=\"col-sm-2 control-label\">Last Name</label>\r\n            <div class=\"col-sm-10\">\r\n                <input type=\"text\" placeholder=\"Last Name\" class=\"form-control\"\r\n                value.bind=\"customer.lastName\" />\r\n            </div>\r\n        </div>\r\n    </form>\r\n            <!-- disabled.bind=\"!validation.result.isValid\" -->\r\n        </div>\r\n    </div>\r\n</div>\r\n</template>\r\n"; });

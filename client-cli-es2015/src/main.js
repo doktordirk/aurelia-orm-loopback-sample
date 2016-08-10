@@ -24,7 +24,9 @@ export function configure(aurelia) {
     .plugin('aurelia-orm', config => {
       config.registerEntity(Customers)
             .registerEntity(User);
-    });
+    })
+    /* @see https://github.com/spoonx/aurelia-datatable */
+    .plugin('aurelia-datatable')
 
   if (environment.debug) {
     aurelia.use.developmentLogging();

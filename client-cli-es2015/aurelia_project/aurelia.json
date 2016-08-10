@@ -118,6 +118,28 @@
           "extend",
           "get-prop",
           "typer",
+          "aurelia-view-manager",
+          {
+            "name": "aurelia-pager",
+            "path": "../node_modules/aurelia-pager/dist/amd",
+            "main": "aurelia-pager",
+            "resources": [
+              "bootstrap/pager.html"
+            ]
+          },
+          {
+            "name": "homefront",
+            "path": "../node_modules/homefront/dist",
+            "main": "index"
+          },
+          {
+            "name": "aurelia-datatable",
+            "path": "../node_modules/aurelia-datatable/dist/amd",
+            "main": "aurelia-datatable",
+            "resources": [
+              "bootstrap/datatable.html"
+            ]
+          },
           {
           "name": "aurelia-orm",
           "path": "../node_modules/aurelia-orm/dist/amd",
