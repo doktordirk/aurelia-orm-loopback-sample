@@ -27,7 +27,7 @@ export class List {
   }
 
   activate() {
-    return this.repository.find('a146aed0-5ee3-11e6-94bc-c1329b3ad075')
+    return this.repository.find(1)
       .then(user => {
         this.customers = user.customers;
       });

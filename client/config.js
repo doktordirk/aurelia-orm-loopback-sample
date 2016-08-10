@@ -17,7 +17,7 @@ System.config({
     "aurelia-history-browser": "npm:aurelia-history-browser@1.0.0",
     "aurelia-loader-default": "npm:aurelia-loader-default@1.0.0",
     "aurelia-logging-console": "npm:aurelia-logging-console@1.0.0",
-    "aurelia-orm": "npm:aurelia-orm@3.0.0-rc6",
+    "aurelia-orm": "npm:aurelia-orm@3.0.0-rc7",
     "aurelia-pager": "npm:aurelia-pager@0.0.10",
     "aurelia-pal-browser": "npm:aurelia-pal-browser@1.0.0",
     "aurelia-polyfills": "npm:aurelia-polyfills@1.0.0",
@@ -36,12 +36,12 @@ System.config({
       "aurelia-binding": "npm:aurelia-binding@1.0.1",
       "aurelia-dependency-injection": "npm:aurelia-dependency-injection@1.0.0",
       "aurelia-logging": "npm:aurelia-logging@1.0.0",
-      "aurelia-orm": "npm:aurelia-orm@3.0.0-rc6",
+      "aurelia-orm": "npm:aurelia-orm@3.0.0-rc7",
       "aurelia-pager": "npm:aurelia-pager@0.0.10",
       "aurelia-router": "npm:aurelia-router@1.0.2",
       "aurelia-templating": "npm:aurelia-templating@1.0.0",
       "aurelia-view-manager": "npm:aurelia-view-manager@0.0.7",
-      "json-statham": "npm:json-statham@2.0.5",
+      "homefront": "npm:homefront@1.0.0",
       "typer": "npm:typer@1.1.0"
     },
     "github:twbs/bootstrap@3.3.7": {
@@ -131,7 +131,7 @@ System.config({
     "npm:aurelia-metadata@1.0.0": {
       "aurelia-pal": "npm:aurelia-pal@1.0.0"
     },
-    "npm:aurelia-orm@3.0.0-rc6": {
+    "npm:aurelia-orm@3.0.0-rc7": {
       "aurelia-api": "npm:aurelia-api@3.0.0-rc8",
       "aurelia-binding": "npm:aurelia-binding@1.0.1",
       "aurelia-dependency-injection": "npm:aurelia-dependency-injection@1.0.0",
@@ -219,7 +219,7 @@ System.config({
     "npm:font-awesome@4.6.3": {
       "css": "github:systemjs/plugin-css@0.1.26"
     },
-    "npm:json-statham@2.0.5": {
+    "npm:homefront@1.0.0": {
       "extend": "npm:extend@3.0.0"
     },
     "npm:jwt-decode@2.1.0": {
@@ -233,7 +233,17 @@ System.config({
       "app.js",
       "customers.html!github:systemjs/plugin-text@0.0.3.js",
       "customers.js",
+      "entities/customers.js",
+      "entities/user.js",
       "main.js",
+      "modules/customer/edit.html!github:systemjs/plugin-text@0.0.3.js",
+      "modules/customer/edit.js",
+      "modules/customer/index.html!github:systemjs/plugin-text@0.0.3.js",
+      "modules/customer/index.js",
+      "modules/customer/list.html!github:systemjs/plugin-text@0.0.3.js",
+      "modules/customer/list.js",
+      "modules/users/profile.html!github:systemjs/plugin-text@0.0.3.js",
+      "modules/users/profile.js",
       "nav-bar.html!github:systemjs/plugin-text@0.0.3.js",
       "welcome.html!github:systemjs/plugin-text@0.0.3.js",
       "welcome.js"
@@ -289,13 +299,13 @@ System.config({
       "npm:aurelia-logging@1.0.0/aurelia-logging.js",
       "npm:aurelia-metadata@1.0.0.js",
       "npm:aurelia-metadata@1.0.0/aurelia-metadata.js",
-      "npm:aurelia-orm@3.0.0-rc6.js",
-      "npm:aurelia-orm@3.0.0-rc6/aurelia-orm.js",
-      "npm:aurelia-orm@3.0.0-rc6/component/association-select.html!github:systemjs/plugin-text@0.0.3.js",
-      "npm:aurelia-orm@3.0.0-rc6/component/association-select.js",
-      "npm:aurelia-orm@3.0.0-rc6/component/paged.html!github:systemjs/plugin-text@0.0.3.js",
-      "npm:aurelia-orm@3.0.0-rc6/component/paged.js",
-      "npm:aurelia-orm@3.0.0-rc6/index.js",
+      "npm:aurelia-orm@3.0.0-rc7.js",
+      "npm:aurelia-orm@3.0.0-rc7/aurelia-orm.js",
+      "npm:aurelia-orm@3.0.0-rc7/component/association-select.html!github:systemjs/plugin-text@0.0.3.js",
+      "npm:aurelia-orm@3.0.0-rc7/component/association-select.js",
+      "npm:aurelia-orm@3.0.0-rc7/component/paged.html!github:systemjs/plugin-text@0.0.3.js",
+      "npm:aurelia-orm@3.0.0-rc7/component/paged.js",
+      "npm:aurelia-orm@3.0.0-rc7/index.js",
       "npm:aurelia-pager@0.0.10.js",
       "npm:aurelia-pager@0.0.10/aurelia-pager.js",
       "npm:aurelia-pager@0.0.10/bootstrap/pager.html!github:systemjs/plugin-text@0.0.3.js",
@@ -381,11 +391,6 @@ System.config({
       "npm:get-prop@0.0.10/getprop.js",
       "npm:jquery@2.2.4.js",
       "npm:jquery@2.2.4/dist/jquery.js",
-      "npm:json-statham@2.0.5.js",
-      "npm:json-statham@2.0.5/index.js",
-      "npm:json-statham@2.0.5/lib/expand.js",
-      "npm:json-statham@2.0.5/lib/flatten.js",
-      "npm:json-statham@2.0.5/lib/utils.js",
       "npm:jwt-decode@2.1.0.js",
       "npm:jwt-decode@2.1.0/lib/atob.js",
       "npm:jwt-decode@2.1.0/lib/base64_url_decode.js",
@@ -399,10 +404,32 @@ System.config({
       "aurelia-framework",
       "aurelia-orm"
     ],
+    "entities/customers.js": [
+      "aurelia-orm"
+    ],
+    "entities/user.js": [
+      "aurelia-orm"
+    ],
     "main.js": [
       "bootstrap",
       "./entities/customers",
       "./entities/user"
+    ],
+    "modules/customer/edit.js": [
+      "aurelia-framework",
+      "aurelia-router",
+      "aurelia-orm"
+    ],
+    "modules/customer/list.js": [
+      "aurelia-framework",
+      "aurelia-orm",
+      "aurelia-router"
+    ],
+    "modules/users/profile.js": [
+      "aurelia-framework",
+      "aurelia-router",
+      "aurelia-orm",
+      "../../entities/user"
     ]
   }
 });

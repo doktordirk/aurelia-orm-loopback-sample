@@ -2,9 +2,9 @@ module.exports = {
   "bundles": {
     "dist/app-build": {
       "includes": [
-        "[*.js]",
-        "*.html!text",
-        "*.css!text"
+        "[**/*.js]",
+        "**/*.html!text",
+        "**/*.css!text"
       ],
       "options": {
         "inject": true,
@@ -31,7 +31,7 @@ module.exports = {
         "bootstrap/css/bootstrap.css!text",
         "fetch",
         "get-prop",
-        "json-statham",
+        "homefront",
         "jquery",
         "text",
         "aurelia-api",
