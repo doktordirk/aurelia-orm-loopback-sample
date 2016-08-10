@@ -30,7 +30,6 @@ const coreBundles = {
   // these will be included in the 'aurelia' bundle (except for the above bootstrap packages)
   aurelia: [
     'aurelia-api',
-    'aurelia-orm',
     'aurelia-bootstrapper-webpack',
     'aurelia-binding',
     'aurelia-dependency-injection',
@@ -53,8 +52,7 @@ const coreBundles = {
     'aurelia-templating',
     'aurelia-templating-binding',
     'aurelia-templating-router',
-    'aurelia-templating-resources',
-    'aurelia-validation'
+    'aurelia-templating-resources'
   ]
 }
 
