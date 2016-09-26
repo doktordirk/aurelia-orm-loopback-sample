@@ -2,8 +2,8 @@
   "name": "client-cli-es2015",
   "type": "project:application",
   "platform": {
-    "id": "default",
-    "displayName": "Default",
+    "id": "web",
+    "displayName": "Web",
     "output": "scripts"
   },
   "transpiler": {
@@ -53,8 +53,8 @@
   "build": {
     "targets": [
       {
-        "id": "default",
-        "displayName": "Default",
+        "id": "web",
+        "displayName": "Web",
         "output": "scripts"
       }
     ],

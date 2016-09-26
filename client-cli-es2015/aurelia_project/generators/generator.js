@@ -26,7 +26,7 @@ export default class GeneratorGenerator {
   }
 
   generateSource(className) {
-return `import {inject} from 'aurelia-dependency-injection';
+    return `import {inject} from 'aurelia-dependency-injection';
 import {Project, ProjectItem, CLIOptions, UI} from 'aurelia-cli';
 
 @inject(Project, CLIOptions, UI)
@@ -62,9 +62,12 @@ export class \${className} {
   valueChanged(newValue, oldValue) {
 
   }
-}\`
+}
+
+\`
   }
 }
-`
+
+`;
   }
 }

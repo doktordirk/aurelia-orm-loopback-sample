@@ -1,46 +1,16 @@
 import gulp from 'gulp';
 import browserSync from 'browser-sync';
-import proxy from 'proxy-middleware';
+import historyApiFallback from 'connect-history-api-fallback/lib';
 import project from '../aurelia.json';
 import build from './build';
 import {CLIOptions} from 'aurelia-cli';
-var url = require('url');
 
-var nodemon = require('gulp-nodemon');
-var util = require('gulp-util');
-var path = require('path');
-
-let node = function() {
-  var nodeOptions = {
-    script: path.join( path.normalize('./../server'),  'server.js'),
-    delayTime: 1,
-    watch: ['./../server', './../common']
-  };
-
-  nodemon(nodeOptions)
-    .on('change', function() {
-      log('nodemon detected change...!');
-    })
-    .on('restart', function() {
-      log('node application is restarted!');
-    })
-    .on('restart', function(ev) {
-      log('*** nodemon restarted');
-      log('files changed on restart:\n' + ev);
-      setTimeout(function() {
-        browserSync.notify('reloading now ...');
-        browserSync.reload({stream: false});
-      }, 1000);
-    });
-};
-
-function log(msg) {
-  util.log(util.colors.green(msg));
+function log(message) {
+  console.log(message); //eslint-disable-line no-console
 }
 
-
 function onChange(path) {
-  console.log(`File Changed: ${path}`);
+  log(`File Changed: ${path}`);
 }
 
 function reload(done) {
@@ -48,33 +18,28 @@ function reload(done) {
   done();
 }
 
-
 let serve = gulp.series(
   build,
-  gulp.parallel(node,
   done => {
-console.log('client')
-  let middleware = [function(req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    next();
-  }];
-
-  //if (CLIOptions.hasFlag('node-server')) {
-    var proxyOptionsApiRoute = url.parse('http://localhost:' + 3000 +  '/api');
-    proxyOptionsApiRoute.route = '/api';
-    middleware.push(proxy(proxyOptionsApiRoute));
-  //}	
-
     browserSync({
       online: false,
       open: false,
       port: 9000,
+      logLevel: 'silent',
       server: {
         baseDir: ['.'],
-        middleware: middleware
+        middleware: [historyApiFallback(), function(req, res, next) {
+          res.setHeader('Access-Control-Allow-Origin', '*');
+          next();
+        }]
       }
-    }, done);
-  })
+    }, function(err, bs) {
+      let urls = bs.options.get('urls').toJS();
+      log(`Application Available At: ${urls.local}`);
+      log(`BrowserSync Available At: ${urls.ui}`);
+      done();
+    });
+  }
 );
 
 let refresh = gulp.series(
@@ -85,8 +50,8 @@ let refresh = gulp.series(
 let watch = function() {
   gulp.watch(project.transpiler.source, refresh).on('change', onChange);
   gulp.watch(project.markupProcessor.source, refresh).on('change', onChange);
-  gulp.watch(project.cssProcessor.source, refresh).on('change', onChange)
-}
+  gulp.watch(project.cssProcessor.source, refresh).on('change', onChange);
+};
 
 let run;
 

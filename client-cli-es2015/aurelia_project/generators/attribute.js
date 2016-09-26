@@ -26,7 +26,7 @@ export default class AttributeGenerator {
   }
 
   generateSource(className) {
-return `import {inject} from 'aurelia-framework';
+    return `import {inject} from 'aurelia-framework';
 
 @inject(Element)
 export class ${className}CustomAttribute {
@@ -37,6 +37,8 @@ export class ${className}CustomAttribute {
   valueChanged(newValue, oldValue) {
 
   }
-}`
+}
+
+`;
   }
 }

@@ -19,14 +19,14 @@ export default class TaskGenerator {
         this.project.tasks.add(
           ProjectItem.text(`${fileName}.js`, this.generateSource(functionName))
         );
-        
+
         return this.project.commitChanges()
           .then(() => this.ui.log(`Created ${fileName}.`));
       });
   }
 
   generateSource(functionName) {
-return `import gulp from 'gulp';
+    return `import gulp from 'gulp';
 import changed from 'gulp-changed';
 import project from '../aurelia.json';
 
@@ -34,6 +34,8 @@ export default function ${functionName}() {
   return gulp.src(project.paths.???)
     .pipe(changed(project.paths.output, {extension: '.???'}))
     .pipe(gulp.dest(project.paths.output));
-}`
+}
+
+`;
   }
 }

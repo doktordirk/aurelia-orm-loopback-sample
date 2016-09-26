@@ -1,881 +1,1010 @@
-define('app',['require','exports','module'],function (require, exports, module) {'use strict';
+define('app',['exports'], function (exports) {
+  'use strict';
 
-exports.__esModule = true;
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var App = exports.App = function () {
-  function App() {
-    _classCallCheck(this, App);
+  function _classCallCheck(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError("Cannot call a class as a function");
+    }
   }
 
-  App.prototype.configureRouter = function configureRouter(config, router) {
-    config.title = 'Aurelia-Orm-Loopback';
-    config.map([{ route: ['', 'welcome'], name: 'welcome', moduleId: 'welcome', nav: true, title: 'Welcome' }, { route: 'users', name: 'users', moduleId: 'modules/users/profile', nav: true, title: 'Profile' }, { route: 'customers', name: 'customers', moduleId: 'customers', nav: true, title: 'List Customers' }, { route: 'customer', name: 'customer', moduleId: 'modules/customer/index', nav: true, title: 'Manage Customers' }]);
+  var App = exports.App = function () {
+    function App() {
+      _classCallCheck(this, App);
+    }
 
-    this.router = router;
-  };
+    App.prototype.configureRouter = function configureRouter(config, router) {
+      config.title = 'Aurelia-Orm-Loopback';
+      config.map([{ route: ['', 'welcome'], name: 'welcome', moduleId: 'welcome', nav: true, title: 'Welcome' }, { route: 'users', name: 'users', moduleId: 'modules/users/profile', nav: true, title: 'Profile' }, { route: 'customers', name: 'customers', moduleId: 'customers', nav: true, title: 'List Customers' }, { route: 'customer', name: 'customer', moduleId: 'modules/customer/index', nav: true, title: 'Manage Customers' }]);
 
-  return App;
-}();
+      this.router = router;
+    };
+
+    return App;
+  }();
 });
+define('blur-image',["exports", "aurelia-framework"], function (exports, _aureliaFramework) {
+	"use strict";
 
-define('blur-image',['require','exports','module','aurelia-framework'],function (require, exports, module) {"use strict";
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.BlurImageCustomAttribute = undefined;
 
-exports.__esModule = true;
-exports.BlurImageCustomAttribute = undefined;
-
-var _dec, _class;
-
-var _aureliaFramework = require("aurelia-framework");
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var BlurImageCustomAttribute = exports.BlurImageCustomAttribute = (_dec = (0, _aureliaFramework.inject)(Element), _dec(_class = function () {
-	function BlurImageCustomAttribute(element) {
-		_classCallCheck(this, BlurImageCustomAttribute);
-
-		this.element = element;
+	function _classCallCheck(instance, Constructor) {
+		if (!(instance instanceof Constructor)) {
+			throw new TypeError("Cannot call a class as a function");
+		}
 	}
 
-	BlurImageCustomAttribute.prototype.valueChanged = function valueChanged(newImage) {
-		var _this = this;
+	var _dec, _class;
 
-		if (newImage.complete) {
-			drawBlur(this.element, newImage);
-		} else {
-			newImage.onload = function () {
-				return drawBlur(_this.element, newImage);
-			};
-		}
-	};
+	var BlurImageCustomAttribute = exports.BlurImageCustomAttribute = (_dec = (0, _aureliaFramework.inject)(Element), _dec(_class = function () {
+		function BlurImageCustomAttribute(element) {
+			_classCallCheck(this, BlurImageCustomAttribute);
 
-	return BlurImageCustomAttribute;
-}()) || _class);
-
-
-var mul_table = [512, 512, 456, 512, 328, 456, 335, 512, 405, 328, 271, 456, 388, 335, 292, 512, 454, 405, 364, 328, 298, 271, 496, 456, 420, 388, 360, 335, 312, 292, 273, 512, 482, 454, 428, 405, 383, 364, 345, 328, 312, 298, 284, 271, 259, 496, 475, 456, 437, 420, 404, 388, 374, 360, 347, 335, 323, 312, 302, 292, 282, 273, 265, 512, 497, 482, 468, 454, 441, 428, 417, 405, 394, 383, 373, 364, 354, 345, 337, 328, 320, 312, 305, 298, 291, 284, 278, 271, 265, 259, 507, 496, 485, 475, 465, 456, 446, 437, 428, 420, 412, 404, 396, 388, 381, 374, 367, 360, 354, 347, 341, 335, 329, 323, 318, 312, 307, 302, 297, 292, 287, 282, 278, 273, 269, 265, 261, 512, 505, 497, 489, 482, 475, 468, 461, 454, 447, 441, 435, 428, 422, 417, 411, 405, 399, 394, 389, 383, 378, 373, 368, 364, 359, 354, 350, 345, 341, 337, 332, 328, 324, 320, 316, 312, 309, 305, 301, 298, 294, 291, 287, 284, 281, 278, 274, 271, 268, 265, 262, 259, 257, 507, 501, 496, 491, 485, 480, 475, 470, 465, 460, 456, 451, 446, 442, 437, 433, 428, 424, 420, 416, 412, 408, 404, 400, 396, 392, 388, 385, 381, 377, 374, 370, 367, 363, 360, 357, 354, 350, 347, 344, 341, 338, 335, 332, 329, 326, 323, 320, 318, 315, 312, 310, 307, 304, 302, 299, 297, 294, 292, 289, 287, 285, 282, 280, 278, 275, 273, 271, 269, 267, 265, 263, 261, 259];
-
-var shg_table = [9, 11, 12, 13, 13, 14, 14, 15, 15, 15, 15, 16, 16, 16, 16, 17, 17, 17, 17, 17, 17, 17, 18, 18, 18, 18, 18, 18, 18, 18, 18, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24];
-
-var BLUR_RADIUS = 40;
-
-function stackBlurCanvasRGBA(canvas, top_x, top_y, width, height, radius) {
-	if (isNaN(radius) || radius < 1) return;
-	radius |= 0;
-
-	var context = canvas.getContext("2d");
-	var imageData;
-
-	try {
-		imageData = context.getImageData(top_x, top_y, width, height);
-	} catch (e) {
-		throw new Error("unable to access image data: " + e);
-	}
-
-	var pixels = imageData.data;
-
-	var x, y, i, p, yp, yi, yw, r_sum, g_sum, b_sum, a_sum, r_out_sum, g_out_sum, b_out_sum, a_out_sum, r_in_sum, g_in_sum, b_in_sum, a_in_sum, pr, pg, pb, pa, rbs;
-
-	var div = radius + radius + 1;
-	var w4 = width << 2;
-	var widthMinus1 = width - 1;
-	var heightMinus1 = height - 1;
-	var radiusPlus1 = radius + 1;
-	var sumFactor = radiusPlus1 * (radiusPlus1 + 1) / 2;
-
-	var stackStart = new BlurStack();
-	var stack = stackStart;
-	for (i = 1; i < div; i++) {
-		stack = stack.next = new BlurStack();
-		if (i == radiusPlus1) var stackEnd = stack;
-	}
-	stack.next = stackStart;
-	var stackIn = null;
-	var stackOut = null;
-
-	yw = yi = 0;
-
-	var mul_sum = mul_table[radius];
-	var shg_sum = shg_table[radius];
-
-	for (y = 0; y < height; y++) {
-		r_in_sum = g_in_sum = b_in_sum = a_in_sum = r_sum = g_sum = b_sum = a_sum = 0;
-
-		r_out_sum = radiusPlus1 * (pr = pixels[yi]);
-		g_out_sum = radiusPlus1 * (pg = pixels[yi + 1]);
-		b_out_sum = radiusPlus1 * (pb = pixels[yi + 2]);
-		a_out_sum = radiusPlus1 * (pa = pixels[yi + 3]);
-
-		r_sum += sumFactor * pr;
-		g_sum += sumFactor * pg;
-		b_sum += sumFactor * pb;
-		a_sum += sumFactor * pa;
-
-		stack = stackStart;
-
-		for (i = 0; i < radiusPlus1; i++) {
-			stack.r = pr;
-			stack.g = pg;
-			stack.b = pb;
-			stack.a = pa;
-			stack = stack.next;
+			this.element = element;
 		}
 
-		for (i = 1; i < radiusPlus1; i++) {
-			p = yi + ((widthMinus1 < i ? widthMinus1 : i) << 2);
-			r_sum += (stack.r = pr = pixels[p]) * (rbs = radiusPlus1 - i);
-			g_sum += (stack.g = pg = pixels[p + 1]) * rbs;
-			b_sum += (stack.b = pb = pixels[p + 2]) * rbs;
-			a_sum += (stack.a = pa = pixels[p + 3]) * rbs;
+		BlurImageCustomAttribute.prototype.valueChanged = function valueChanged(newImage) {
+			var _this = this;
 
-			r_in_sum += pr;
-			g_in_sum += pg;
-			b_in_sum += pb;
-			a_in_sum += pa;
-
-			stack = stack.next;
-		}
-
-		stackIn = stackStart;
-		stackOut = stackEnd;
-		for (x = 0; x < width; x++) {
-			pixels[yi + 3] = pa = a_sum * mul_sum >> shg_sum;
-			if (pa != 0) {
-				pa = 255 / pa;
-				pixels[yi] = (r_sum * mul_sum >> shg_sum) * pa;
-				pixels[yi + 1] = (g_sum * mul_sum >> shg_sum) * pa;
-				pixels[yi + 2] = (b_sum * mul_sum >> shg_sum) * pa;
+			if (newImage.complete) {
+				drawBlur(this.element, newImage);
 			} else {
-				pixels[yi] = pixels[yi + 1] = pixels[yi + 2] = 0;
+				newImage.onload = function () {
+					return drawBlur(_this.element, newImage);
+				};
 			}
+		};
 
-			r_sum -= r_out_sum;
-			g_sum -= g_out_sum;
-			b_sum -= b_out_sum;
-			a_sum -= a_out_sum;
+		return BlurImageCustomAttribute;
+	}()) || _class);
 
-			r_out_sum -= stackIn.r;
-			g_out_sum -= stackIn.g;
-			b_out_sum -= stackIn.b;
-			a_out_sum -= stackIn.a;
 
-			p = yw + ((p = x + radius + 1) < widthMinus1 ? p : widthMinus1) << 2;
+	var mul_table = [512, 512, 456, 512, 328, 456, 335, 512, 405, 328, 271, 456, 388, 335, 292, 512, 454, 405, 364, 328, 298, 271, 496, 456, 420, 388, 360, 335, 312, 292, 273, 512, 482, 454, 428, 405, 383, 364, 345, 328, 312, 298, 284, 271, 259, 496, 475, 456, 437, 420, 404, 388, 374, 360, 347, 335, 323, 312, 302, 292, 282, 273, 265, 512, 497, 482, 468, 454, 441, 428, 417, 405, 394, 383, 373, 364, 354, 345, 337, 328, 320, 312, 305, 298, 291, 284, 278, 271, 265, 259, 507, 496, 485, 475, 465, 456, 446, 437, 428, 420, 412, 404, 396, 388, 381, 374, 367, 360, 354, 347, 341, 335, 329, 323, 318, 312, 307, 302, 297, 292, 287, 282, 278, 273, 269, 265, 261, 512, 505, 497, 489, 482, 475, 468, 461, 454, 447, 441, 435, 428, 422, 417, 411, 405, 399, 394, 389, 383, 378, 373, 368, 364, 359, 354, 350, 345, 341, 337, 332, 328, 324, 320, 316, 312, 309, 305, 301, 298, 294, 291, 287, 284, 281, 278, 274, 271, 268, 265, 262, 259, 257, 507, 501, 496, 491, 485, 480, 475, 470, 465, 460, 456, 451, 446, 442, 437, 433, 428, 424, 420, 416, 412, 408, 404, 400, 396, 392, 388, 385, 381, 377, 374, 370, 367, 363, 360, 357, 354, 350, 347, 344, 341, 338, 335, 332, 329, 326, 323, 320, 318, 315, 312, 310, 307, 304, 302, 299, 297, 294, 292, 289, 287, 285, 282, 280, 278, 275, 273, 271, 269, 267, 265, 263, 261, 259];
 
-			r_in_sum += stackIn.r = pixels[p];
-			g_in_sum += stackIn.g = pixels[p + 1];
-			b_in_sum += stackIn.b = pixels[p + 2];
-			a_in_sum += stackIn.a = pixels[p + 3];
+	var shg_table = [9, 11, 12, 13, 13, 14, 14, 15, 15, 15, 15, 16, 16, 16, 16, 17, 17, 17, 17, 17, 17, 17, 18, 18, 18, 18, 18, 18, 18, 18, 18, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24];
 
-			r_sum += r_in_sum;
-			g_sum += g_in_sum;
-			b_sum += b_in_sum;
-			a_sum += a_in_sum;
+	var BLUR_RADIUS = 40;
 
-			stackIn = stackIn.next;
+	function stackBlurCanvasRGBA(canvas, top_x, top_y, width, height, radius) {
+		if (isNaN(radius) || radius < 1) return;
+		radius |= 0;
 
-			r_out_sum += pr = stackOut.r;
-			g_out_sum += pg = stackOut.g;
-			b_out_sum += pb = stackOut.b;
-			a_out_sum += pa = stackOut.a;
+		var context = canvas.getContext("2d");
+		var imageData;
 
-			r_in_sum -= pr;
-			g_in_sum -= pg;
-			b_in_sum -= pb;
-			a_in_sum -= pa;
-
-			stackOut = stackOut.next;
-
-			yi += 4;
-		}
-		yw += width;
-	}
-
-	for (x = 0; x < width; x++) {
-		g_in_sum = b_in_sum = a_in_sum = r_in_sum = g_sum = b_sum = a_sum = r_sum = 0;
-
-		yi = x << 2;
-		r_out_sum = radiusPlus1 * (pr = pixels[yi]);
-		g_out_sum = radiusPlus1 * (pg = pixels[yi + 1]);
-		b_out_sum = radiusPlus1 * (pb = pixels[yi + 2]);
-		a_out_sum = radiusPlus1 * (pa = pixels[yi + 3]);
-
-		r_sum += sumFactor * pr;
-		g_sum += sumFactor * pg;
-		b_sum += sumFactor * pb;
-		a_sum += sumFactor * pa;
-
-		stack = stackStart;
-
-		for (i = 0; i < radiusPlus1; i++) {
-			stack.r = pr;
-			stack.g = pg;
-			stack.b = pb;
-			stack.a = pa;
-			stack = stack.next;
+		try {
+			imageData = context.getImageData(top_x, top_y, width, height);
+		} catch (e) {
+			throw new Error("unable to access image data: " + e);
 		}
 
-		yp = width;
+		var pixels = imageData.data;
 
-		for (i = 1; i <= radius; i++) {
-			yi = yp + x << 2;
+		var x, y, i, p, yp, yi, yw, r_sum, g_sum, b_sum, a_sum, r_out_sum, g_out_sum, b_out_sum, a_out_sum, r_in_sum, g_in_sum, b_in_sum, a_in_sum, pr, pg, pb, pa, rbs;
 
-			r_sum += (stack.r = pr = pixels[yi]) * (rbs = radiusPlus1 - i);
-			g_sum += (stack.g = pg = pixels[yi + 1]) * rbs;
-			b_sum += (stack.b = pb = pixels[yi + 2]) * rbs;
-			a_sum += (stack.a = pa = pixels[yi + 3]) * rbs;
+		var div = radius + radius + 1;
+		var w4 = width << 2;
+		var widthMinus1 = width - 1;
+		var heightMinus1 = height - 1;
+		var radiusPlus1 = radius + 1;
+		var sumFactor = radiusPlus1 * (radiusPlus1 + 1) / 2;
 
-			r_in_sum += pr;
-			g_in_sum += pg;
-			b_in_sum += pb;
-			a_in_sum += pa;
-
-			stack = stack.next;
-
-			if (i < heightMinus1) {
-				yp += width;
-			}
+		var stackStart = new BlurStack();
+		var stack = stackStart;
+		for (i = 1; i < div; i++) {
+			stack = stack.next = new BlurStack();
+			if (i == radiusPlus1) var stackEnd = stack;
 		}
+		stack.next = stackStart;
+		var stackIn = null;
+		var stackOut = null;
 
-		yi = x;
-		stackIn = stackStart;
-		stackOut = stackEnd;
+		yw = yi = 0;
+
+		var mul_sum = mul_table[radius];
+		var shg_sum = shg_table[radius];
+
 		for (y = 0; y < height; y++) {
-			p = yi << 2;
-			pixels[p + 3] = pa = a_sum * mul_sum >> shg_sum;
-			if (pa > 0) {
-				pa = 255 / pa;
-				pixels[p] = (r_sum * mul_sum >> shg_sum) * pa;
-				pixels[p + 1] = (g_sum * mul_sum >> shg_sum) * pa;
-				pixels[p + 2] = (b_sum * mul_sum >> shg_sum) * pa;
-			} else {
-				pixels[p] = pixels[p + 1] = pixels[p + 2] = 0;
+			r_in_sum = g_in_sum = b_in_sum = a_in_sum = r_sum = g_sum = b_sum = a_sum = 0;
+
+			r_out_sum = radiusPlus1 * (pr = pixels[yi]);
+			g_out_sum = radiusPlus1 * (pg = pixels[yi + 1]);
+			b_out_sum = radiusPlus1 * (pb = pixels[yi + 2]);
+			a_out_sum = radiusPlus1 * (pa = pixels[yi + 3]);
+
+			r_sum += sumFactor * pr;
+			g_sum += sumFactor * pg;
+			b_sum += sumFactor * pb;
+			a_sum += sumFactor * pa;
+
+			stack = stackStart;
+
+			for (i = 0; i < radiusPlus1; i++) {
+				stack.r = pr;
+				stack.g = pg;
+				stack.b = pb;
+				stack.a = pa;
+				stack = stack.next;
 			}
 
-			r_sum -= r_out_sum;
-			g_sum -= g_out_sum;
-			b_sum -= b_out_sum;
-			a_sum -= a_out_sum;
+			for (i = 1; i < radiusPlus1; i++) {
+				p = yi + ((widthMinus1 < i ? widthMinus1 : i) << 2);
+				r_sum += (stack.r = pr = pixels[p]) * (rbs = radiusPlus1 - i);
+				g_sum += (stack.g = pg = pixels[p + 1]) * rbs;
+				b_sum += (stack.b = pb = pixels[p + 2]) * rbs;
+				a_sum += (stack.a = pa = pixels[p + 3]) * rbs;
 
-			r_out_sum -= stackIn.r;
-			g_out_sum -= stackIn.g;
-			b_out_sum -= stackIn.b;
-			a_out_sum -= stackIn.a;
+				r_in_sum += pr;
+				g_in_sum += pg;
+				b_in_sum += pb;
+				a_in_sum += pa;
 
-			p = x + ((p = y + radiusPlus1) < heightMinus1 ? p : heightMinus1) * width << 2;
+				stack = stack.next;
+			}
 
-			r_sum += r_in_sum += stackIn.r = pixels[p];
-			g_sum += g_in_sum += stackIn.g = pixels[p + 1];
-			b_sum += b_in_sum += stackIn.b = pixels[p + 2];
-			a_sum += a_in_sum += stackIn.a = pixels[p + 3];
+			stackIn = stackStart;
+			stackOut = stackEnd;
+			for (x = 0; x < width; x++) {
+				pixels[yi + 3] = pa = a_sum * mul_sum >> shg_sum;
+				if (pa != 0) {
+					pa = 255 / pa;
+					pixels[yi] = (r_sum * mul_sum >> shg_sum) * pa;
+					pixels[yi + 1] = (g_sum * mul_sum >> shg_sum) * pa;
+					pixels[yi + 2] = (b_sum * mul_sum >> shg_sum) * pa;
+				} else {
+					pixels[yi] = pixels[yi + 1] = pixels[yi + 2] = 0;
+				}
 
-			stackIn = stackIn.next;
+				r_sum -= r_out_sum;
+				g_sum -= g_out_sum;
+				b_sum -= b_out_sum;
+				a_sum -= a_out_sum;
 
-			r_out_sum += pr = stackOut.r;
-			g_out_sum += pg = stackOut.g;
-			b_out_sum += pb = stackOut.b;
-			a_out_sum += pa = stackOut.a;
+				r_out_sum -= stackIn.r;
+				g_out_sum -= stackIn.g;
+				b_out_sum -= stackIn.b;
+				a_out_sum -= stackIn.a;
 
-			r_in_sum -= pr;
-			g_in_sum -= pg;
-			b_in_sum -= pb;
-			a_in_sum -= pa;
+				p = yw + ((p = x + radius + 1) < widthMinus1 ? p : widthMinus1) << 2;
 
-			stackOut = stackOut.next;
+				r_in_sum += stackIn.r = pixels[p];
+				g_in_sum += stackIn.g = pixels[p + 1];
+				b_in_sum += stackIn.b = pixels[p + 2];
+				a_in_sum += stackIn.a = pixels[p + 3];
 
-			yi += width;
+				r_sum += r_in_sum;
+				g_sum += g_in_sum;
+				b_sum += b_in_sum;
+				a_sum += a_in_sum;
+
+				stackIn = stackIn.next;
+
+				r_out_sum += pr = stackOut.r;
+				g_out_sum += pg = stackOut.g;
+				b_out_sum += pb = stackOut.b;
+				a_out_sum += pa = stackOut.a;
+
+				r_in_sum -= pr;
+				g_in_sum -= pg;
+				b_in_sum -= pb;
+				a_in_sum -= pa;
+
+				stackOut = stackOut.next;
+
+				yi += 4;
+			}
+			yw += width;
 		}
+
+		for (x = 0; x < width; x++) {
+			g_in_sum = b_in_sum = a_in_sum = r_in_sum = g_sum = b_sum = a_sum = r_sum = 0;
+
+			yi = x << 2;
+			r_out_sum = radiusPlus1 * (pr = pixels[yi]);
+			g_out_sum = radiusPlus1 * (pg = pixels[yi + 1]);
+			b_out_sum = radiusPlus1 * (pb = pixels[yi + 2]);
+			a_out_sum = radiusPlus1 * (pa = pixels[yi + 3]);
+
+			r_sum += sumFactor * pr;
+			g_sum += sumFactor * pg;
+			b_sum += sumFactor * pb;
+			a_sum += sumFactor * pa;
+
+			stack = stackStart;
+
+			for (i = 0; i < radiusPlus1; i++) {
+				stack.r = pr;
+				stack.g = pg;
+				stack.b = pb;
+				stack.a = pa;
+				stack = stack.next;
+			}
+
+			yp = width;
+
+			for (i = 1; i <= radius; i++) {
+				yi = yp + x << 2;
+
+				r_sum += (stack.r = pr = pixels[yi]) * (rbs = radiusPlus1 - i);
+				g_sum += (stack.g = pg = pixels[yi + 1]) * rbs;
+				b_sum += (stack.b = pb = pixels[yi + 2]) * rbs;
+				a_sum += (stack.a = pa = pixels[yi + 3]) * rbs;
+
+				r_in_sum += pr;
+				g_in_sum += pg;
+				b_in_sum += pb;
+				a_in_sum += pa;
+
+				stack = stack.next;
+
+				if (i < heightMinus1) {
+					yp += width;
+				}
+			}
+
+			yi = x;
+			stackIn = stackStart;
+			stackOut = stackEnd;
+			for (y = 0; y < height; y++) {
+				p = yi << 2;
+				pixels[p + 3] = pa = a_sum * mul_sum >> shg_sum;
+				if (pa > 0) {
+					pa = 255 / pa;
+					pixels[p] = (r_sum * mul_sum >> shg_sum) * pa;
+					pixels[p + 1] = (g_sum * mul_sum >> shg_sum) * pa;
+					pixels[p + 2] = (b_sum * mul_sum >> shg_sum) * pa;
+				} else {
+					pixels[p] = pixels[p + 1] = pixels[p + 2] = 0;
+				}
+
+				r_sum -= r_out_sum;
+				g_sum -= g_out_sum;
+				b_sum -= b_out_sum;
+				a_sum -= a_out_sum;
+
+				r_out_sum -= stackIn.r;
+				g_out_sum -= stackIn.g;
+				b_out_sum -= stackIn.b;
+				a_out_sum -= stackIn.a;
+
+				p = x + ((p = y + radiusPlus1) < heightMinus1 ? p : heightMinus1) * width << 2;
+
+				r_sum += r_in_sum += stackIn.r = pixels[p];
+				g_sum += g_in_sum += stackIn.g = pixels[p + 1];
+				b_sum += b_in_sum += stackIn.b = pixels[p + 2];
+				a_sum += a_in_sum += stackIn.a = pixels[p + 3];
+
+				stackIn = stackIn.next;
+
+				r_out_sum += pr = stackOut.r;
+				g_out_sum += pg = stackOut.g;
+				b_out_sum += pb = stackOut.b;
+				a_out_sum += pa = stackOut.a;
+
+				r_in_sum -= pr;
+				g_in_sum -= pg;
+				b_in_sum -= pb;
+				a_in_sum -= pa;
+
+				stackOut = stackOut.next;
+
+				yi += width;
+			}
+		}
+
+		context.putImageData(imageData, top_x, top_y);
 	}
 
-	context.putImageData(imageData, top_x, top_y);
-}
+	function BlurStack() {
+		this.r = 0;
+		this.g = 0;
+		this.b = 0;
+		this.a = 0;
+		this.next = null;
+	}
 
-function BlurStack() {
-	this.r = 0;
-	this.g = 0;
-	this.b = 0;
-	this.a = 0;
-	this.next = null;
-}
-
-function drawBlur(canvas, image) {
-	var w = canvas.width;
-	var h = canvas.height;
-	var canvasContext = canvas.getContext('2d');
-	canvasContext.drawImage(image, 0, 0, w, h);
-	stackBlurCanvasRGBA(canvas, 0, 0, w, h, BLUR_RADIUS);
-};
+	function drawBlur(canvas, image) {
+		var w = canvas.width;
+		var h = canvas.height;
+		var canvasContext = canvas.getContext('2d');
+		canvasContext.drawImage(image, 0, 0, w, h);
+		stackBlurCanvasRGBA(canvas, 0, 0, w, h, BLUR_RADIUS);
+	};
 });
+define('customers',['exports', 'aurelia-framework', 'aurelia-orm'], function (exports, _aureliaFramework, _aureliaOrm) {
+  'use strict';
 
-define('customers',['require','exports','module','aurelia-framework','aurelia-orm'],function (require, exports, module) {'use strict';
-
-exports.__esModule = true;
-exports.Customers = undefined;
-
-var _dec, _class;
-
-var _aureliaFramework = require('aurelia-framework');
-
-var _aureliaOrm = require('aurelia-orm');
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var Customers = exports.Customers = (_dec = (0, _aureliaFramework.inject)(_aureliaOrm.EntityManager), _dec(_class = function Customers(entityManager) {
-  _classCallCheck(this, Customers);
-
-  this.heading = 'Customers';
-
-  this.repository = entityManager.getRepository('customers');
-}) || _class);
-});
-
-define('environment',['require','exports','module'],function (require, exports, module) {"use strict";
-
-exports.__esModule = true;
-exports.default = {
-  debug: true,
-  testing: true
-};
-});
-
-define('main',['require','exports','module','./environment','bootstrap','./entities/customers','./entities/user'],function (require, exports, module) {'use strict';
-
-exports.__esModule = true;
-exports.configure = configure;
-
-var _environment = require('./environment');
-
-var _environment2 = _interopRequireDefault(_environment);
-
-require('bootstrap');
-
-var _customers = require('./entities/customers');
-
-var _user = require('./entities/user');
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-Promise.config({
-  warnings: {
-    wForgottenReturn: false
-  }
-});
-
-function configure(aurelia) {
-  aurelia.use.standardConfiguration().plugin('aurelia-api', function (config) {
-    config.registerEndpoint('github', 'https://api.github.com/').registerEndpoint('api', 'http://localhost:3000/api/').setDefaultEndpoint('github');
-  }).plugin('aurelia-orm', function (config) {
-    config.registerEntity(_customers.Customers).registerEntity(_user.User);
-  }).plugin('aurelia-datatable');
-
-  if (_environment2.default.debug) {
-    aurelia.use.developmentLogging();
-  }
-
-  if (_environment2.default.testing) {
-    aurelia.use.plugin('aurelia-testing');
-  }
-
-  aurelia.start().then(function () {
-    return aurelia.setRoot();
+  Object.defineProperty(exports, "__esModule", {
+    value: true
   });
-}
-});
+  exports.Customers = undefined;
 
-define('welcome',['require','exports','module'],function (require, exports, module) {'use strict';
-
-exports.__esModule = true;
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var Welcome = exports.Welcome = function () {
-  function Welcome() {
-    _classCallCheck(this, Welcome);
-
-    this.heading = 'Welcome to the Aurelia Navigation App!';
-    this.firstName = 'John';
-    this.lastName = 'Doe';
-    this.previousValue = this.fullName;
-  }
-
-  Welcome.prototype.submit = function submit() {
-    this.previousValue = this.fullName;
-    alert('Welcome, ' + this.fullName + '!');
-  };
-
-  Welcome.prototype.canDeactivate = function canDeactivate() {
-    if (this.fullName !== this.previousValue) {
-      return confirm('Are you sure you want to leave?');
+  function _classCallCheck(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError("Cannot call a class as a function");
     }
-  };
-
-  _createClass(Welcome, [{
-    key: 'fullName',
-    get: function get() {
-      return this.firstName + ' ' + this.lastName;
-    }
-  }]);
-
-  return Welcome;
-}();
-
-var UpperValueConverter = exports.UpperValueConverter = function () {
-  function UpperValueConverter() {
-    _classCallCheck(this, UpperValueConverter);
   }
 
-  UpperValueConverter.prototype.toView = function toView(value) {
-    return value && value.toUpperCase();
-  };
+  var _dec, _class;
 
-  return UpperValueConverter;
-}();
-});
-
-define('entities/customers',['require','exports','module','aurelia-orm'],function (require, exports, module) {'use strict';
-
-exports.__esModule = true;
-exports.Customers = undefined;
-
-var _dec, _dec2, _dec3, _dec4, _class, _desc, _value, _class2, _descriptor, _descriptor2;
-
-var _aureliaOrm = require('aurelia-orm');
-
-function _initDefineProp(target, property, descriptor, context) {
-  if (!descriptor) return;
-  Object.defineProperty(target, property, {
-    enumerable: descriptor.enumerable,
-    configurable: descriptor.configurable,
-    writable: descriptor.writable,
-    value: descriptor.initializer ? descriptor.initializer.call(context) : void 0
-  });
-}
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) {
-  var desc = {};
-  Object['ke' + 'ys'](descriptor).forEach(function (key) {
-    desc[key] = descriptor[key];
-  });
-  desc.enumerable = !!desc.enumerable;
-  desc.configurable = !!desc.configurable;
-
-  if ('value' in desc || desc.initializer) {
-    desc.writable = true;
-  }
-
-  desc = decorators.slice().reverse().reduce(function (desc, decorator) {
-    return decorator(target, property, desc) || desc;
-  }, desc);
-
-  if (context && desc.initializer !== void 0) {
-    desc.value = desc.initializer ? desc.initializer.call(context) : void 0;
-    desc.initializer = undefined;
-  }
-
-  if (desc.initializer === void 0) {
-    Object['define' + 'Property'](target, property, desc);
-    desc = null;
-  }
-
-  return desc;
-}
-
-function _initializerWarningHelper(descriptor, context) {
-  throw new Error('Decorating class property failed. Please ensure that transform-class-properties is enabled.');
-}
-
-var Customers = exports.Customers = (_dec = (0, _aureliaOrm.resource)('customers'), _dec2 = (0, _aureliaOrm.endpoint)('api'), _dec3 = (0, _aureliaOrm.type)('string'), _dec4 = (0, _aureliaOrm.type)('string'), _dec(_class = _dec2(_class = (_class2 = function (_Entity) {
-  _inherits(Customers, _Entity);
-
-  function Customers() {
-    var _temp, _this, _ret;
-
+  var Customers = exports.Customers = (_dec = (0, _aureliaFramework.inject)(_aureliaOrm.EntityManager), _dec(_class = function Customers(entityManager) {
     _classCallCheck(this, Customers);
 
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
+    this.heading = 'Customers';
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, _Entity.call.apply(_Entity, [this].concat(args))), _this), _initDefineProp(_this, 'firstName', _descriptor, _this), _initDefineProp(_this, 'lastName', _descriptor2, _this), _temp), _possibleConstructorReturn(_this, _ret);
-  }
-
-  return Customers;
-}(_aureliaOrm.Entity), (_descriptor = _applyDecoratedDescriptor(_class2.prototype, 'firstName', [_dec3], {
-  enumerable: true,
-  initializer: function initializer() {
-    return '';
-  }
-}), _descriptor2 = _applyDecoratedDescriptor(_class2.prototype, 'lastName', [_dec4], {
-  enumerable: true,
-  initializer: function initializer() {
-    return '';
-  }
-})), _class2)) || _class) || _class);
-});
-
-define('entities/user',['require','exports','module','aurelia-orm'],function (require, exports, module) {'use strict';
-
-exports.__esModule = true;
-exports.User = undefined;
-
-var _dec, _dec2, _dec3, _dec4, _dec5, _dec6, _class, _desc, _value, _class2, _descriptor, _descriptor2, _descriptor3, _descriptor4;
-
-var _aureliaOrm = require('aurelia-orm');
-
-function _initDefineProp(target, property, descriptor, context) {
-  if (!descriptor) return;
-  Object.defineProperty(target, property, {
-    enumerable: descriptor.enumerable,
-    configurable: descriptor.configurable,
-    writable: descriptor.writable,
-    value: descriptor.initializer ? descriptor.initializer.call(context) : void 0
-  });
-}
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) {
-  var desc = {};
-  Object['ke' + 'ys'](descriptor).forEach(function (key) {
-    desc[key] = descriptor[key];
-  });
-  desc.enumerable = !!desc.enumerable;
-  desc.configurable = !!desc.configurable;
-
-  if ('value' in desc || desc.initializer) {
-    desc.writable = true;
-  }
-
-  desc = decorators.slice().reverse().reduce(function (desc, decorator) {
-    return decorator(target, property, desc) || desc;
-  }, desc);
-
-  if (context && desc.initializer !== void 0) {
-    desc.value = desc.initializer ? desc.initializer.call(context) : void 0;
-    desc.initializer = undefined;
-  }
-
-  if (desc.initializer === void 0) {
-    Object['define' + 'Property'](target, property, desc);
-    desc = null;
-  }
-
-  return desc;
-}
-
-function _initializerWarningHelper(descriptor, context) {
-  throw new Error('Decorating class property failed. Please ensure that transform-class-properties is enabled.');
-}
-
-var User = exports.User = (_dec = (0, _aureliaOrm.resource)('users'), _dec2 = (0, _aureliaOrm.endpoint)('api'), _dec3 = (0, _aureliaOrm.type)('string'), _dec4 = (0, _aureliaOrm.type)('string'), _dec5 = (0, _aureliaOrm.type)('string'), _dec6 = (0, _aureliaOrm.association)({ collection: 'customers' }), _dec(_class = _dec2(_class = (_class2 = function (_Entity) {
-  _inherits(User, _Entity);
-
-  function User() {
-    var _temp, _this, _ret;
-
-    _classCallCheck(this, User);
-
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, _Entity.call.apply(_Entity, [this].concat(args))), _this), _initDefineProp(_this, 'displayName', _descriptor, _this), _initDefineProp(_this, 'email', _descriptor2, _this), _initDefineProp(_this, 'password', _descriptor3, _this), _initDefineProp(_this, 'customers', _descriptor4, _this), _temp), _possibleConstructorReturn(_this, _ret);
-  }
-
-  return User;
-}(_aureliaOrm.Entity), (_descriptor = _applyDecoratedDescriptor(_class2.prototype, 'displayName', [_dec3], {
-  enumerable: true,
-  initializer: function initializer() {
-    return '';
-  }
-}), _descriptor2 = _applyDecoratedDescriptor(_class2.prototype, 'email', [_dec4], {
-  enumerable: true,
-  initializer: function initializer() {
-    return '';
-  }
-}), _descriptor3 = _applyDecoratedDescriptor(_class2.prototype, 'password', [_dec5], {
-  enumerable: true,
-  initializer: function initializer() {
-    return 'none';
-  }
-}), _descriptor4 = _applyDecoratedDescriptor(_class2.prototype, 'customers', [_dec6], {
-  enumerable: true,
-  initializer: function initializer() {
-    return null;
-  }
-})), _class2)) || _class) || _class);
-});
-
-define('modules/customer/customers',['require','exports','module','aurelia-framework','aurelia-api'],function (require, exports, module) {'use strict';
-
-exports.__esModule = true;
-exports.Customers = undefined;
-
-var _dec, _class;
-
-var _aureliaFramework = require('aurelia-framework');
-
-var _aureliaApi = require('aurelia-api');
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var Customers = exports.Customers = (_dec = (0, _aureliaFramework.inject)(_aureliaApi.Endpoint.of('api')), _dec(_class = function () {
-  function Customers(rest) {
-    _classCallCheck(this, Customers);
-
-    this.model = 'customers';
-
-    this.apiEndpoint = rest;
-  }
-
-  Customers.prototype.getById = function getById(id) {
-    return this.apiEndpoint.find(this.model, id);
-  };
-
-  Customers.prototype.getAll = function getAll(criteria) {
-    return this.apiEndpoint.find(this.model, criteria);
-  };
-
-  Customers.prototype.delete = function _delete(customer) {
-    return this.apiEndpoint.destroy(this.model, customer.id);
-  };
-
-  Customers.prototype.save = function save(customer) {
-    var request = void 0;
-
-    if (customer.id) {
-      request = this.apiEndpoint.update(this.model, customer.id, customer);
-    } else {
-      request = this.apiEndpoint.create(this.model, customer);
-    }
-
-    return request;
-  };
-
-  return Customers;
-}()) || _class);
-});
-
-define('modules/customer/edit',['require','exports','module','aurelia-framework','aurelia-router','aurelia-orm'],function (require, exports, module) {'use strict';
-
-exports.__esModule = true;
-exports.Edit = undefined;
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _dec, _class;
-
-var _aureliaFramework = require('aurelia-framework');
-
-var _aureliaRouter = require('aurelia-router');
-
-var _aureliaOrm = require('aurelia-orm');
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var USER_ID = 1;var Edit = exports.Edit = (_dec = (0, _aureliaFramework.inject)(_aureliaOrm.EntityManager, _aureliaRouter.Router), _dec(_class = function () {
-  function Edit(entityManager, router) {
-    _classCallCheck(this, Edit);
-
-    this.userRepository = entityManager.getRepository('users');
     this.repository = entityManager.getRepository('customers');
-    this.customer = this.repository.getNewEntity();
-    this.router = router;
+  }) || _class);
+});
+define('environment',["exports"], function (exports) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = {
+    debug: true,
+    testing: true
+  };
+});
+define('main',['exports', './environment', './entities/customers', './entities/user', 'bootstrap'], function (exports, _environment, _customers, _user) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.configure = configure;
+
+  var _environment2 = _interopRequireDefault(_environment);
+
+  function _interopRequireDefault(obj) {
+    return obj && obj.__esModule ? obj : {
+      default: obj
+    };
   }
 
-  Edit.prototype.cancel = function cancel() {
-    return this.customer.setData(this.original);
-  };
+  Promise.config({
+    warnings: {
+      wForgottenReturn: false
+    }
+  });
 
-  Edit.prototype.goBack = function goBack() {
-    window.history.back();
-  };
+  function configure(aurelia) {
+    aurelia.use.standardConfiguration().plugin('aurelia-api', function (config) {
+      config.registerEndpoint('github', 'https://api.github.com/').registerEndpoint('api', 'http://localhost:3000/api/').setDefaultEndpoint('github');
+    }).plugin('aurelia-orm', function (config) {
+      config.registerEntity(_customers.Customers).registerEntity(_user.User);
+    }).plugin('aurelia-datatable');
 
-  Edit.prototype.activate = function activate(params) {
-    var _this = this;
+    if (_environment2.default.debug) {
+      aurelia.use.developmentLogging();
+    }
 
-    return this.userRepository.find(USER_ID).then(function (user) {
-      if (params.id) {
-        _this.customer = user.customers.filter(function (customer) {
-          return customer.id == params.id;
-        })[0];
-      } else {
-        _this.customer.setData({ firstName: '', lastName: '', userId: USER_ID });
+    if (_environment2.default.testing) {
+      aurelia.use.plugin('aurelia-testing');
+    }
+
+    aurelia.start().then(function () {
+      return aurelia.setRoot();
+    });
+  }
+});
+define('welcome',['exports'], function (exports) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  function _classCallCheck(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError("Cannot call a class as a function");
+    }
+  }
+
+  var _createClass = function () {
+    function defineProperties(target, props) {
+      for (var i = 0; i < props.length; i++) {
+        var descriptor = props[i];
+        descriptor.enumerable = descriptor.enumerable || false;
+        descriptor.configurable = true;
+        if ("value" in descriptor) descriptor.writable = true;
+        Object.defineProperty(target, descriptor.key, descriptor);
       }
-      _this.original = _this.customer.asObject();
-      _this.customer.markClean();
-    });
-  };
-
-  Edit.prototype.delete = function _delete() {
-    var _this2 = this;
-
-    this.customer.destroy().then(function () {
-      return _this2.router.navigate('list');
-    });
-  };
-
-  Edit.prototype.save = function save() {
-    var _this3 = this;
-
-    this.customer.save().then(function () {
-      return _this3.router.navigate('list');
-    });
-  };
-
-  _createClass(Edit, [{
-    key: 'isUnchanged',
-    get: function get() {
-      return this.customer.isClean();
     }
-  }, {
-    key: 'isInvalid',
-    get: function get() {
-      return !this.customer.firstName || !this.customer.lastName;
-    }
-  }, {
-    key: 'isNew',
-    get: function get() {
-      return this.customer.isNew();
-    }
-  }]);
 
-  return Edit;
-}()) || _class);
+    return function (Constructor, protoProps, staticProps) {
+      if (protoProps) defineProperties(Constructor.prototype, protoProps);
+      if (staticProps) defineProperties(Constructor, staticProps);
+      return Constructor;
+    };
+  }();
+
+  var Welcome = exports.Welcome = function () {
+    function Welcome() {
+      _classCallCheck(this, Welcome);
+
+      this.heading = 'Welcome to the Aurelia Navigation App!';
+      this.firstName = 'John';
+      this.lastName = 'Doe';
+      this.previousValue = this.fullName;
+    }
+
+    Welcome.prototype.submit = function submit() {
+      this.previousValue = this.fullName;
+      alert('Welcome, ' + this.fullName + '!');
+    };
+
+    Welcome.prototype.canDeactivate = function canDeactivate() {
+      if (this.fullName !== this.previousValue) {
+        return confirm('Are you sure you want to leave?');
+      }
+    };
+
+    _createClass(Welcome, [{
+      key: 'fullName',
+      get: function get() {
+        return this.firstName + ' ' + this.lastName;
+      }
+    }]);
+
+    return Welcome;
+  }();
+
+  var UpperValueConverter = exports.UpperValueConverter = function () {
+    function UpperValueConverter() {
+      _classCallCheck(this, UpperValueConverter);
+    }
+
+    UpperValueConverter.prototype.toView = function toView(value) {
+      return value && value.toUpperCase();
+    };
+
+    return UpperValueConverter;
+  }();
 });
+define('entities/customers',['exports', 'aurelia-orm'], function (exports, _aureliaOrm) {
+  'use strict';
 
-define('modules/customer/index',['require','exports','module'],function (require, exports, module) {'use strict';
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.Customers = undefined;
 
-exports.__esModule = true;
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var Index = exports.Index = function () {
-  function Index() {
-    _classCallCheck(this, Index);
+  function _initDefineProp(target, property, descriptor, context) {
+    if (!descriptor) return;
+    Object.defineProperty(target, property, {
+      enumerable: descriptor.enumerable,
+      configurable: descriptor.configurable,
+      writable: descriptor.writable,
+      value: descriptor.initializer ? descriptor.initializer.call(context) : void 0
+    });
   }
 
-  Index.prototype.configureRouter = function configureRouter(config, router) {
-    config.map([{ route: ['', 'list'], moduleId: './list', name: 'list' }, { route: 'edit/:id', moduleId: './edit', name: 'edit' }, { route: 'create', moduleId: './edit', name: 'create' }]);
-
-    this.router = router;
-  };
-
-  return Index;
-}();
-});
-
-define('modules/customer/list',['require','exports','module','aurelia-framework','aurelia-orm','aurelia-router'],function (require, exports, module) {'use strict';
-
-exports.__esModule = true;
-exports.List = undefined;
-
-var _dec, _class;
-
-var _aureliaFramework = require('aurelia-framework');
-
-var _aureliaOrm = require('aurelia-orm');
-
-var _aureliaRouter = require('aurelia-router');
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var List = exports.List = (_dec = (0, _aureliaFramework.inject)(_aureliaOrm.EntityManager, _aureliaRouter.Router), _dec(_class = function () {
-  function List(entityManager, router) {
-    _classCallCheck(this, List);
-
-    this.heading = 'Customer management';
-    this.customers = [];
-
-    this.repository = entityManager.getRepository('users');
-    this.router = router;
-  }
-
-  List.prototype.gotoCustomer = function gotoCustomer(customer) {
-    this.router.navigateToRoute('edit', { id: customer.id });
-  };
-
-  List.prototype.new = function _new() {
-    this.router.navigateToRoute('create');
-  };
-
-  List.prototype.activate = function activate() {
-    var _this = this;
-
-    return this.repository.find(1).then(function (user) {
-      _this.customers = user.customers;
-    });
-  };
-
-  return List;
-}()) || _class);
-});
-
-define('modules/users/profile',['require','exports','module','aurelia-framework','aurelia-router','aurelia-orm','../../entities/user'],function (require, exports, module) {'use strict';
-
-exports.__esModule = true;
-exports.Profile = undefined;
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _dec, _class;
-
-var _aureliaFramework = require('aurelia-framework');
-
-var _aureliaRouter = require('aurelia-router');
-
-var _aureliaOrm = require('aurelia-orm');
-
-var _user = require('../../entities/user');
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var Profile = exports.Profile = (_dec = (0, _aureliaFramework.inject)(_aureliaOrm.EntityManager, _aureliaRouter.Router), _dec(_class = function () {
-  function Profile(entityManager, router) {
-    _classCallCheck(this, Profile);
-
-    this.heading = 'Profile';
-
-    this.repository = entityManager.getRepository('users');
-    this.profile = this.repository.getNewEntity();
-    this.router = router;
-  }
-
-  Profile.prototype.activate = function activate() {
-    var _this = this;
-
-    return this.repository.find(1).then(function (user) {
-      _this.profile = user;
-    });
-  };
-
-  Profile.prototype.update = function update() {
-    this.profile.save();
-  };
-
-  _createClass(Profile, [{
-    key: 'isUnchanged',
-    get: function get() {
-      return this.profile.isClean();
+  function _classCallCheck(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError("Cannot call a class as a function");
     }
-  }]);
+  }
 
-  return Profile;
-}()) || _class);
+  function _possibleConstructorReturn(self, call) {
+    if (!self) {
+      throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+    }
+
+    return call && (typeof call === "object" || typeof call === "function") ? call : self;
+  }
+
+  function _inherits(subClass, superClass) {
+    if (typeof superClass !== "function" && superClass !== null) {
+      throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+    }
+
+    subClass.prototype = Object.create(superClass && superClass.prototype, {
+      constructor: {
+        value: subClass,
+        enumerable: false,
+        writable: true,
+        configurable: true
+      }
+    });
+    if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+  }
+
+  function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) {
+    var desc = {};
+    Object['ke' + 'ys'](descriptor).forEach(function (key) {
+      desc[key] = descriptor[key];
+    });
+    desc.enumerable = !!desc.enumerable;
+    desc.configurable = !!desc.configurable;
+
+    if ('value' in desc || desc.initializer) {
+      desc.writable = true;
+    }
+
+    desc = decorators.slice().reverse().reduce(function (desc, decorator) {
+      return decorator(target, property, desc) || desc;
+    }, desc);
+
+    if (context && desc.initializer !== void 0) {
+      desc.value = desc.initializer ? desc.initializer.call(context) : void 0;
+      desc.initializer = undefined;
+    }
+
+    if (desc.initializer === void 0) {
+      Object['define' + 'Property'](target, property, desc);
+      desc = null;
+    }
+
+    return desc;
+  }
+
+  function _initializerWarningHelper(descriptor, context) {
+    throw new Error('Decorating class property failed. Please ensure that transform-class-properties is enabled.');
+  }
+
+  var _dec, _dec2, _dec3, _dec4, _class, _desc, _value, _class2, _descriptor, _descriptor2;
+
+  var Customers = exports.Customers = (_dec = (0, _aureliaOrm.resource)('customers'), _dec2 = (0, _aureliaOrm.endpoint)('api'), _dec3 = (0, _aureliaOrm.type)('string'), _dec4 = (0, _aureliaOrm.type)('string'), _dec(_class = _dec2(_class = (_class2 = function (_Entity) {
+    _inherits(Customers, _Entity);
+
+    function Customers() {
+      var _temp, _this, _ret;
+
+      _classCallCheck(this, Customers);
+
+      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      return _ret = (_temp = (_this = _possibleConstructorReturn(this, _Entity.call.apply(_Entity, [this].concat(args))), _this), _initDefineProp(_this, 'firstName', _descriptor, _this), _initDefineProp(_this, 'lastName', _descriptor2, _this), _temp), _possibleConstructorReturn(_this, _ret);
+    }
+
+    return Customers;
+  }(_aureliaOrm.Entity), (_descriptor = _applyDecoratedDescriptor(_class2.prototype, 'firstName', [_dec3], {
+    enumerable: true,
+    initializer: function initializer() {
+      return '';
+    }
+  }), _descriptor2 = _applyDecoratedDescriptor(_class2.prototype, 'lastName', [_dec4], {
+    enumerable: true,
+    initializer: function initializer() {
+      return '';
+    }
+  })), _class2)) || _class) || _class);
 });
+define('entities/user',['exports', 'aurelia-orm'], function (exports, _aureliaOrm) {
+  'use strict';
 
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.User = undefined;
+
+  function _initDefineProp(target, property, descriptor, context) {
+    if (!descriptor) return;
+    Object.defineProperty(target, property, {
+      enumerable: descriptor.enumerable,
+      configurable: descriptor.configurable,
+      writable: descriptor.writable,
+      value: descriptor.initializer ? descriptor.initializer.call(context) : void 0
+    });
+  }
+
+  function _classCallCheck(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError("Cannot call a class as a function");
+    }
+  }
+
+  function _possibleConstructorReturn(self, call) {
+    if (!self) {
+      throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+    }
+
+    return call && (typeof call === "object" || typeof call === "function") ? call : self;
+  }
+
+  function _inherits(subClass, superClass) {
+    if (typeof superClass !== "function" && superClass !== null) {
+      throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+    }
+
+    subClass.prototype = Object.create(superClass && superClass.prototype, {
+      constructor: {
+        value: subClass,
+        enumerable: false,
+        writable: true,
+        configurable: true
+      }
+    });
+    if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+  }
+
+  function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) {
+    var desc = {};
+    Object['ke' + 'ys'](descriptor).forEach(function (key) {
+      desc[key] = descriptor[key];
+    });
+    desc.enumerable = !!desc.enumerable;
+    desc.configurable = !!desc.configurable;
+
+    if ('value' in desc || desc.initializer) {
+      desc.writable = true;
+    }
+
+    desc = decorators.slice().reverse().reduce(function (desc, decorator) {
+      return decorator(target, property, desc) || desc;
+    }, desc);
+
+    if (context && desc.initializer !== void 0) {
+      desc.value = desc.initializer ? desc.initializer.call(context) : void 0;
+      desc.initializer = undefined;
+    }
+
+    if (desc.initializer === void 0) {
+      Object['define' + 'Property'](target, property, desc);
+      desc = null;
+    }
+
+    return desc;
+  }
+
+  function _initializerWarningHelper(descriptor, context) {
+    throw new Error('Decorating class property failed. Please ensure that transform-class-properties is enabled.');
+  }
+
+  var _dec, _dec2, _dec3, _dec4, _dec5, _dec6, _class, _desc, _value, _class2, _descriptor, _descriptor2, _descriptor3, _descriptor4;
+
+  var User = exports.User = (_dec = (0, _aureliaOrm.resource)('users'), _dec2 = (0, _aureliaOrm.endpoint)('api'), _dec3 = (0, _aureliaOrm.type)('string'), _dec4 = (0, _aureliaOrm.type)('string'), _dec5 = (0, _aureliaOrm.type)('string'), _dec6 = (0, _aureliaOrm.association)({ collection: 'customers' }), _dec(_class = _dec2(_class = (_class2 = function (_Entity) {
+    _inherits(User, _Entity);
+
+    function User() {
+      var _temp, _this, _ret;
+
+      _classCallCheck(this, User);
+
+      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      return _ret = (_temp = (_this = _possibleConstructorReturn(this, _Entity.call.apply(_Entity, [this].concat(args))), _this), _initDefineProp(_this, 'displayName', _descriptor, _this), _initDefineProp(_this, 'email', _descriptor2, _this), _initDefineProp(_this, 'password', _descriptor3, _this), _initDefineProp(_this, 'customers', _descriptor4, _this), _temp), _possibleConstructorReturn(_this, _ret);
+    }
+
+    return User;
+  }(_aureliaOrm.Entity), (_descriptor = _applyDecoratedDescriptor(_class2.prototype, 'displayName', [_dec3], {
+    enumerable: true,
+    initializer: function initializer() {
+      return '';
+    }
+  }), _descriptor2 = _applyDecoratedDescriptor(_class2.prototype, 'email', [_dec4], {
+    enumerable: true,
+    initializer: function initializer() {
+      return '';
+    }
+  }), _descriptor3 = _applyDecoratedDescriptor(_class2.prototype, 'password', [_dec5], {
+    enumerable: true,
+    initializer: function initializer() {
+      return 'none';
+    }
+  }), _descriptor4 = _applyDecoratedDescriptor(_class2.prototype, 'customers', [_dec6], {
+    enumerable: true,
+    initializer: function initializer() {
+      return null;
+    }
+  })), _class2)) || _class) || _class);
+});
+define('resources/index',["exports"], function (exports) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.configure = configure;
+  function configure(config) {}
+});
+define('modules/customer/customers',['exports', 'aurelia-framework', 'aurelia-api'], function (exports, _aureliaFramework, _aureliaApi) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.Customers = undefined;
+
+  function _classCallCheck(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError("Cannot call a class as a function");
+    }
+  }
+
+  var _dec, _class;
+
+  var Customers = exports.Customers = (_dec = (0, _aureliaFramework.inject)(_aureliaApi.Endpoint.of('api')), _dec(_class = function () {
+    function Customers(rest) {
+      _classCallCheck(this, Customers);
+
+      this.model = 'customers';
+
+      this.apiEndpoint = rest;
+    }
+
+    Customers.prototype.getById = function getById(id) {
+      return this.apiEndpoint.find(this.model, id);
+    };
+
+    Customers.prototype.getAll = function getAll(criteria) {
+      return this.apiEndpoint.find(this.model, criteria);
+    };
+
+    Customers.prototype.delete = function _delete(customer) {
+      return this.apiEndpoint.destroy(this.model, customer.id);
+    };
+
+    Customers.prototype.save = function save(customer) {
+      var request = void 0;
+
+      if (customer.id) {
+        request = this.apiEndpoint.update(this.model, customer.id, customer);
+      } else {
+        request = this.apiEndpoint.create(this.model, customer);
+      }
+
+      return request;
+    };
+
+    return Customers;
+  }()) || _class);
+});
+define('modules/customer/edit',['exports', 'aurelia-framework', 'aurelia-router', 'aurelia-orm'], function (exports, _aureliaFramework, _aureliaRouter, _aureliaOrm) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.Edit = undefined;
+
+  function _classCallCheck(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError("Cannot call a class as a function");
+    }
+  }
+
+  var _createClass = function () {
+    function defineProperties(target, props) {
+      for (var i = 0; i < props.length; i++) {
+        var descriptor = props[i];
+        descriptor.enumerable = descriptor.enumerable || false;
+        descriptor.configurable = true;
+        if ("value" in descriptor) descriptor.writable = true;
+        Object.defineProperty(target, descriptor.key, descriptor);
+      }
+    }
+
+    return function (Constructor, protoProps, staticProps) {
+      if (protoProps) defineProperties(Constructor.prototype, protoProps);
+      if (staticProps) defineProperties(Constructor, staticProps);
+      return Constructor;
+    };
+  }();
+
+  var _dec, _class;
+
+  var USER_ID = 1;var Edit = exports.Edit = (_dec = (0, _aureliaFramework.inject)(_aureliaOrm.EntityManager, _aureliaRouter.Router), _dec(_class = function () {
+    function Edit(entityManager, router) {
+      _classCallCheck(this, Edit);
+
+      this.userRepository = entityManager.getRepository('users');
+      this.repository = entityManager.getRepository('customers');
+      this.customer = this.repository.getNewEntity();
+      this.router = router;
+    }
+
+    Edit.prototype.cancel = function cancel() {
+      return this.customer.setData(this.original);
+    };
+
+    Edit.prototype.goBack = function goBack() {
+      window.history.back();
+    };
+
+    Edit.prototype.activate = function activate(params) {
+      var _this = this;
+
+      return this.userRepository.find(USER_ID).then(function (user) {
+        if (params.id) {
+          _this.customer = user.customers.filter(function (customer) {
+            return customer.id == params.id;
+          })[0];
+        } else {
+          _this.customer.setData({ firstName: '', lastName: '', userId: USER_ID });
+        }
+        _this.original = _this.customer.asObject();
+        _this.customer.markClean();
+      });
+    };
+
+    Edit.prototype.delete = function _delete() {
+      var _this2 = this;
+
+      this.customer.destroy().then(function () {
+        return _this2.router.navigate('list');
+      });
+    };
+
+    Edit.prototype.save = function save() {
+      var _this3 = this;
+
+      this.customer.save().then(function () {
+        return _this3.router.navigate('list');
+      });
+    };
+
+    _createClass(Edit, [{
+      key: 'isUnchanged',
+      get: function get() {
+        return this.customer.isClean();
+      }
+    }, {
+      key: 'isInvalid',
+      get: function get() {
+        return !this.customer.firstName || !this.customer.lastName;
+      }
+    }, {
+      key: 'isNew',
+      get: function get() {
+        return this.customer.isNew();
+      }
+    }]);
+
+    return Edit;
+  }()) || _class);
+});
+define('modules/customer/index',['exports'], function (exports) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  function _classCallCheck(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError("Cannot call a class as a function");
+    }
+  }
+
+  var Index = exports.Index = function () {
+    function Index() {
+      _classCallCheck(this, Index);
+    }
+
+    Index.prototype.configureRouter = function configureRouter(config, router) {
+      config.map([{ route: ['', 'list'], moduleId: './list', name: 'list' }, { route: 'edit/:id', moduleId: './edit', name: 'edit' }, { route: 'create', moduleId: './edit', name: 'create' }]);
+
+      this.router = router;
+    };
+
+    return Index;
+  }();
+});
+define('modules/customer/list',['exports', 'aurelia-framework', 'aurelia-orm', 'aurelia-router'], function (exports, _aureliaFramework, _aureliaOrm, _aureliaRouter) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.List = undefined;
+
+  function _classCallCheck(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError("Cannot call a class as a function");
+    }
+  }
+
+  var _dec, _class;
+
+  var List = exports.List = (_dec = (0, _aureliaFramework.inject)(_aureliaOrm.EntityManager, _aureliaRouter.Router), _dec(_class = function () {
+    function List(entityManager, router) {
+      _classCallCheck(this, List);
+
+      this.heading = 'Customer management';
+      this.customers = [];
+
+      this.repository = entityManager.getRepository('users');
+      this.router = router;
+    }
+
+    List.prototype.gotoCustomer = function gotoCustomer(customer) {
+      this.router.navigateToRoute('edit', { id: customer.id });
+    };
+
+    List.prototype.new = function _new() {
+      this.router.navigateToRoute('create');
+    };
+
+    List.prototype.activate = function activate() {
+      var _this = this;
+
+      return this.repository.find(1).then(function (user) {
+        _this.customers = user.customers;
+      });
+    };
+
+    return List;
+  }()) || _class);
+});
+define('modules/users/profile',['exports', 'aurelia-framework', 'aurelia-router', 'aurelia-orm', '../../entities/user'], function (exports, _aureliaFramework, _aureliaRouter, _aureliaOrm, _user) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.Profile = undefined;
+
+  function _classCallCheck(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError("Cannot call a class as a function");
+    }
+  }
+
+  var _createClass = function () {
+    function defineProperties(target, props) {
+      for (var i = 0; i < props.length; i++) {
+        var descriptor = props[i];
+        descriptor.enumerable = descriptor.enumerable || false;
+        descriptor.configurable = true;
+        if ("value" in descriptor) descriptor.writable = true;
+        Object.defineProperty(target, descriptor.key, descriptor);
+      }
+    }
+
+    return function (Constructor, protoProps, staticProps) {
+      if (protoProps) defineProperties(Constructor.prototype, protoProps);
+      if (staticProps) defineProperties(Constructor, staticProps);
+      return Constructor;
+    };
+  }();
+
+  var _dec, _class;
+
+  var Profile = exports.Profile = (_dec = (0, _aureliaFramework.inject)(_aureliaOrm.EntityManager, _aureliaRouter.Router), _dec(_class = function () {
+    function Profile(entityManager, router) {
+      _classCallCheck(this, Profile);
+
+      this.heading = 'Profile';
+
+      this.repository = entityManager.getRepository('users');
+      this.profile = this.repository.getNewEntity();
+      this.router = router;
+    }
+
+    Profile.prototype.activate = function activate() {
+      var _this = this;
+
+      return this.repository.find(1).then(function (user) {
+        _this.profile = user;
+      });
+    };
+
+    Profile.prototype.update = function update() {
+      this.profile.save();
+    };
+
+    _createClass(Profile, [{
+      key: 'isUnchanged',
+      get: function get() {
+        return this.profile.isClean();
+      }
+    }]);
+
+    return Profile;
+  }()) || _class);
+});
 define('aurelia-validation/utilities',['exports'], function (exports) {
   'use strict';
 
@@ -3430,8 +3559,8 @@ define('aurelia-validation/validate-custom-attribute',['exports', 'aurelia-depen
     return ValidateCustomAttribute;
   }()) || _class) || _class);
 });
-define('text!app.html', ['module'], function(module) { module.exports = "<template>\n  <require from=\"nav-bar.html\"></require>\n  <require from=\"bootstrap/css/bootstrap.css\"></require>\n  \n  <nav-bar router.bind=\"router\"></nav-bar>\n\n  <div class=\"page-host\">\n    <router-view></router-view>\n  </div>\n</template>\n"; });
-define('text!customers.html', ['module'], function(module) { module.exports = "<template>\n  <section >\n      <h2>${heading}</h2>\n      <datatable\n        columns=\"id, firstName as FirstName\"\n        repository.bind=\"repository\"\n        search-column=\"firstName\"\n        searchable\n        sortable\n      ></datatable>\n  </section>\n</template>\n"; });
+define('text!app.html', ['module'], function(module) { module.exports = "<template>\r\n  <require from=\"nav-bar.html\"></require>\r\n  <require from=\"bootstrap/css/bootstrap.css\"></require>\r\n  \r\n  <nav-bar router.bind=\"router\"></nav-bar>\r\n\r\n  <div class=\"page-host\">\r\n    <router-view></router-view>\r\n  </div>\r\n</template>\r\n"; });
+define('text!customers.html', ['module'], function(module) { module.exports = "<template>\r\n  <section >\r\n      <h2>${heading}</h2>\r\n      <datatable\r\n        columns=\"id, firstName as FirstName\"\r\n        repository.bind=\"repository\"\r\n        search-column=\"firstName\"\r\n        searchable\r\n        sortable\r\n      ></datatable>\r\n  </section>\r\n</template>\r\n"; });
 define('text!nav-bar.html', ['module'], function(module) { module.exports = "<template bindable=\"router\">\n  <nav class=\"navbar navbar-default navbar-fixed-top\" role=\"navigation\">\n    <div class=\"navbar-header\">\n      <button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\"#skeleton-navigation-navbar-collapse\">\n        <span class=\"sr-only\">Toggle Navigation</span>\n        <span class=\"icon-bar\"></span>\n        <span class=\"icon-bar\"></span>\n        <span class=\"icon-bar\"></span>\n      </button>\n      <a class=\"navbar-brand\" href=\"#\">\n        <i class=\"fa fa-home\"></i>\n        <span>${router.title}</span>\n      </a>\n    </div>\n\n    <div class=\"collapse navbar-collapse\" id=\"skeleton-navigation-navbar-collapse\">\n      <ul class=\"nav navbar-nav\">\n        <li repeat.for=\"row of router.navigation\" class=\"${row.isActive ? 'active' : ''}\">\n          <a data-toggle=\"collapse\" data-target=\"#skeleton-navigation-navbar-collapse.in\" href.bind=\"row.href\">${row.title}</a>\n        </li>\n      </ul>\n\n      <ul class=\"nav navbar-nav navbar-right\">\n        <li class=\"loader\" if.bind=\"router.isNavigating\">\n          <i class=\"fa fa-spinner fa-spin fa-2x\"></i>\n        </li>\n      </ul>\n    </div>\n  </nav>\n</template>\n"; });
 define('text!welcome.html', ['module'], function(module) { module.exports = "<template>\r\n  <section class=\"au-animate\">\r\n    <h2>${heading}</h2>\r\n    <form role=\"form\" submit.delegate=\"submit()\">\r\n      <div class=\"form-group\">\r\n        <label for=\"fn\">First Name</label>\r\n        <input type=\"text\" value.bind=\"firstName\" class=\"form-control\" id=\"fn\" placeholder=\"first name\">\r\n      </div>\r\n      <div class=\"form-group\">\r\n        <label for=\"ln\">Last Name</label>\r\n        <input type=\"text\" value.bind=\"lastName\" class=\"form-control\" id=\"ln\" placeholder=\"last name\">\r\n      </div>\r\n      <div class=\"form-group\">\r\n        <label>Full Name</label>\r\n        <p class=\"help-block\">${fullName | upper}</p>\r\n      </div>\r\n      <button type=\"submit\" class=\"btn btn-default\">Submit</button>\r\n    </form>\r\n  </section>\r\n</template>\r\n"; });
 define('text!modules/customer/edit.html', ['module'], function(module) { module.exports = "<template>\r\n<div class=\"container\">\r\n    <div class=\"panel panel-default\">\r\n        <div class=\"panel-heading\">\r\n            <div class=\"panel-title\">\r\n                <h3>Editing ${customer.lastName}</h3>\r\n            </div>\r\n            <button class=\"btn btn-info\"\r\n            click.delegate=\"goBack()\">\r\n            Back\r\n            </button>\r\n            <button class=\"btn btn-info\"\r\n            click.delegate=\"cancel()\"\r\n            disabled.bind=\"isUnchanged\">\r\n            Cancel\r\n            </button>\r\n            <button class=\"btn btn-info\"\r\n            click.delegate=\"save()\"\r\n            disabled.bind=\"isUnchanged || isInvalid\">\r\n            Save\r\n            </button>\r\n            <button class=\"btn btn-info\"\r\n            click.delegate=\"delete()\"\r\n            disabled.bind=\"isNew || !isUnchanged\">\r\n            Delete\r\n            </button>\r\n        </div>\r\n        <div class=\"panel-body\">\r\n      <form class=\"form-horizontal\">\r\n        <div class=\"form-group\">\r\n            <label class=\"col-sm-2 control-label\">First Name</label>\r\n            <div class=\"col-sm-10\">\r\n                <input type=\"text\" placeholder=\"First Name\"  class=\"form-control\"\r\n                value.bind=\"customer.firstName\" />\r\n            </div>\r\n        </div>\r\n        <div class=\"form-group\">\r\n            <label class=\"col-sm-2 control-label\">Last Name</label>\r\n            <div class=\"col-sm-10\">\r\n                <input type=\"text\" placeholder=\"Last Name\" class=\"form-control\"\r\n                value.bind=\"customer.lastName\" />\r\n            </div>\r\n        </div>\r\n    </form>\r\n            <!-- disabled.bind=\"!validation.result.isValid\" -->\r\n        </div>\r\n    </div>\r\n</div>\r\n</template>\r\n"; });

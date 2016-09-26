@@ -26,7 +26,7 @@ export default class ValueConverterGenerator {
   }
 
   generateSource(className) {
-return `export class ${className}ValueConverter {
+    return `export class ${className}ValueConverter {
   toView(value) {
 
   }
@@ -34,6 +34,8 @@ return `export class ${className}ValueConverter {
   fromView(value) {
 
   }
-}`
+}
+
+`;
   }
 }

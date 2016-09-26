@@ -26,7 +26,7 @@ export default class BindingBehaviorGenerator {
   }
 
   generateSource(className) {
-return `export class ${className}BindingBehavior {
+    return `export class ${className}BindingBehavior {
   bind(binding, source) {
 
   }
@@ -34,6 +34,8 @@ return `export class ${className}BindingBehavior {
   unbind(binding, source) {
 
   }
-}`
+}
+
+`
   }
 }
