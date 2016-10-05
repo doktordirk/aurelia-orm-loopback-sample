@@ -29,6 +29,7 @@ export class List {
   activate() {
     return this.repository.find(1)
       .then(user => {
+        console.log(user)
         this.customers = user.customers;
       });
   }

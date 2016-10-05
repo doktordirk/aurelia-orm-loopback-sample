@@ -7,6 +7,6 @@ export class Customers extends Entity {
   firstName: string = '';
   lastName: string = '';
 
-  @type('string')
+  @type('number')
   id: string;
 }

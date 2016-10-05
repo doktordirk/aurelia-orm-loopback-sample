@@ -12,6 +12,7 @@ export class Edit {
   userRepository: Repository;
   repository: Repository;
   router: Router;
+  user: User;
 
   customer: Customers;
   original: Object;
@@ -35,8 +36,9 @@ export class Edit {
   activate(params) {
     return this.userRepository.find(USER_ID)
       .then(user => {
+        this.user = this.userRepository.getPopulatedEntity(user, this.user);
         if (params.id) {
-          this.customer = user.customers.filter( customer => customer.id == params.id)[0];
+          this.customer = this.user.customers.filter( customer => customer.id == params.id)[0];
           console.log(this.customer, this.customer.isNew())
         } else {
           this.customer.setData({firstName: '', lastName: '', userId: USER_ID});
@@ -64,7 +66,7 @@ export class Edit {
   }
 
   save() {
-    this.customer.save()
+    this.user.update()
       .then((customer) => {
         console.log(customer, this.customer.isNew());
         return this.router.navigate('list');
