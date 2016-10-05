@@ -3,6 +3,7 @@ import { Router } from 'aurelia-router';
 import { EntityManager, Repository } from 'aurelia-orm';
 import { User } from '../../entities/user';
 import { Customers } from '../../entities/customers';
+import {ValidationControllerFactory, ValidationController} from 'aurelia-validation';
 
 const USER_ID: number = 1;  // fix user for simplicity
 
@@ -17,12 +18,15 @@ export class Edit {
   customer: Customers;
   original: Object;
 
-  constructor(entityManager: EntityManager, router: Router) {
+  controller: ValidationController;
+
+  constructor(entityManager: EntityManager, router: Router, controllerFactory: ValidationControllerFactory) {
     this.entityManager = entityManager;
     this.userRepository = entityManager.getRepository('users');
     this.repository = entityManager.getRepository('customers');
     this.customer = this.repository.getNewEntity();
     this.router = router;
+    this.controller = controllerFactory.createForCurrentScope();
   }
 
   cancel() {
@@ -66,10 +70,15 @@ export class Edit {
   }
 
   save() {
-    this.user.update()
-      .then((customer) => {
-        console.log(customer, this.customer.isNew());
-        return this.router.navigate('list');
-      });
+    this.customer.validate().then(errors => {      
+     if (errors.length === 0) {
+       return this.customer.save()
+        .then((customer) => {
+          console.log(customer, this.customer.isNew());
+          return this.router.navigate('list');
+        });
+     }
+      alert(errors[0].message);
+  })
   }
 }

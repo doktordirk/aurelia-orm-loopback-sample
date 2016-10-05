@@ -1,8 +1,6 @@
 {
   "name": "aurelia-skeleton-navigation-typescript",
   "dependencies": {
-    "aurelia-api": "github:doktordirk/aurelia-api#dev",
-    "aurelia-orm": "github:doktordirk/aurelia-orm#dev",
     "aurelia-binding": "github:aurelia/binding",
     "aurelia-bootstrapper": "github:aurelia/bootstrapper",
     "aurelia-dependency-injection": "github:aurelia/dependency-injection",
@@ -26,11 +24,18 @@
     "aurelia-templating-binding": "github:aurelia/templating-binding",
     "aurelia-templating-resources": "github:aurelia/templating-resources",
     "aurelia-templating-router": "github:aurelia/templating-router",
-    "aurelia-validation": "github:aurelia/validation"
+    "aurelia-validation": "github:aurelia/validation",
+    "aurelia-api": "github:spoonx/aurelia-api",
+    "aurelia-orm": "github:spoonx/aurelia-orm"
   },
   "globalDevDependencies": {
     "angular-protractor": "registry:dt/angular-protractor#1.5.0+20160425143459",
+    "aurelia-protractor": "github:aurelia/typings/dist/aurelia-protractor.d.ts",
     "jasmine": "registry:dt/jasmine#2.2.0+20160505161446",
     "selenium-webdriver": "registry:dt/selenium-webdriver#2.44.0+20160317120654"
+  },
+  "globalDependencies": {
+    "url": "github:aurelia/fetch-client/doc/url.d.ts#bbe0777ef710d889a05759a65fa2c9c3865fc618",
+    "whatwg-fetch": "registry:dt/whatwg-fetch#0.0.0+20160524142046"
   }
 }

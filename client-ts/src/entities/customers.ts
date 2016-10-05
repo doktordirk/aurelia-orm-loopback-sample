@@ -1,6 +1,7 @@
-import {Entity, resource, endpoint, type} from 'aurelia-orm';
+import {Entity, validatedResource, endpoint, type} from 'aurelia-orm';
+import { ValidationRules } from "aurelia-validation";
 
-@resource('customers')
+@validatedResource('customers')
 @endpoint('api')
 export class Customers extends Entity {
 
@@ -8,5 +9,14 @@ export class Customers extends Entity {
   lastName: string = '';
 
   @type('number')
-  id: string;
+  id: number;
+
+  constructor() {
+    super();
+
+    ValidationRules
+      .ensure('firstName').required()
+      .ensure('lastName').required()
+      .on(this);
+  }
 }

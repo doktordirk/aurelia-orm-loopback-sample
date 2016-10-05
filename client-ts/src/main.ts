@@ -8,6 +8,7 @@ export function configure(aurelia: Aurelia) {
   aurelia.use
     .standardConfiguration()
     .developmentLogging()
+    .plugin('aurelia-validation')
     .plugin('aurelia-api', config => {
       config
         .registerEndpoint('github', 'https://api.github.com/')
